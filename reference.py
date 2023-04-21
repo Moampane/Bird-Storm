@@ -14,6 +14,7 @@ background_image = pygame.transform.scale(background_image, (1500, 750))
 # player
 player_image = pygame.image.load("graphics/duck.png").convert_alpha()
 player_image = pygame.transform.scale(player_image, (100, 100))
+player_heading = 0
 player_hitbox = player_image.get_rect(topleft=(200, 500))
 
 # player starting position
@@ -45,6 +46,59 @@ while True:
             pygame.display.quit()
             pygame.quit()
             exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                if player_heading == 0:
+                    change = 90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 180:
+                    change = -90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 270:
+                    change = -180
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+            if event.key == pygame.K_s:
+                if player_heading == 0:
+                    change = 270
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 90:
+                    change = 180
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 180:
+                    change = 90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+            if event.key == pygame.K_a:
+                if player_heading == 0:
+                    change = 180
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 90:
+                    change = 90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 270:
+                    change = -90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+            if event.key == pygame.K_d:
+                if player_heading == 90:
+                    change = -90
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 180:
+                    change = -180
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
+                elif player_heading == 270:
+                    change = -270
+                    player_image = pygame.transform.rotate(player_image, change)
+                    player_heading += change
 
     # attack
     mouse_buttons = pygame.mouse.get_pressed()
