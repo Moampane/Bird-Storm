@@ -16,22 +16,19 @@ class BirdCharacter(ABC):
         character does per hit
         _sprite_path: a string representing the file path to the folder
         containing the character's different sprites
-        _current_loc = a list containing the current x and y location of
-        the character
         _sprite_img = a pygame surface containing the image of the character
         _sprite_rect = a pygame rectangle mapped to the character sprite
     """
 
     def __init__(self, sprite_path):
-        # these three declare custom in player and enemy class
-        # also scale for enemies
-        # self._max_hp = max_hp
-        # self._remaining_hp = max_hp
-        # self._atk = atk
+        # Set stats to 0 for now
+        self._max_hp = 0
+        self._remaining_hp = 0
+        self._atk = 0
+
+        # load character imgs in pygame
         self._sprite_path = sprite_path
         self._sprite_img = pygame.image.load(sprite_path).convert_alpha()
-
-        # uhh change to be accurate
         self._sprite_rect = self._sprite_img.get_rect()
 
     @property
@@ -55,6 +52,20 @@ class BirdCharacter(ABC):
         """
         return self._atk
 
+    @property
+    def sprite_img(self):
+        """
+        Returns the pygame image of a character.
+        """
+        return self._sprite_img
+
+    @property
+    def sprite_rect(self):
+        """
+        Returns the pygame rectangle of a character.
+        """
+        return self._sprite_rect
+
     def attack(self, target):
         """
         Carries out attack animation and damage done to a target.
@@ -73,7 +84,6 @@ class BirdCharacter(ABC):
         Args:
             opponent_atk: an integer representing the opponent's atk stat
         """
-
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self._die()
@@ -84,4 +94,3 @@ class BirdCharacter(ABC):
         Base function for when a character reaches 0HP. Will be implemented in
         subclasses.
         """
-        pass
