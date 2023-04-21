@@ -10,6 +10,9 @@ BASE_ENEMY_HP = 100
 BASE_ENEMY_ATK = 10
 BASE_ENEMY_SPD = 2
 
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+
 
 class EnemyBird(BirdCharacter):
     """
@@ -28,8 +31,12 @@ class EnemyBird(BirdCharacter):
 
         # change to variables containing window size
         # also change logic to do the entire border around window
-        self._spawn_loc = [random.choice([0, 800]), random.randint(0, 800)]
+        self._spawn_loc = [
+            random.choice([0, WINDOW_WIDTH]),
+            random.randint(0, WINDOW_HEIGHT),
+        ]
         self._sprite_img = pygame.transform.scale(self._sprite_img, (100, 100))
+        self._sprite_rect = self._sprite_img.get_rect(topleft=self._spawn_loc)
 
     def follow_player(self, player):
         """
