@@ -8,7 +8,7 @@ from bird_class import BirdCharacter
 
 BASE_ENEMY_HP = 100
 BASE_ENEMY_ATK = 10
-BASE_ENEMY_SPD = 1
+BASE_ENEMY_SPD = 2
 
 
 class EnemyBird(BirdCharacter):
@@ -16,6 +16,7 @@ class EnemyBird(BirdCharacter):
     Attributes:
 
         _spawn_loc: a list containing the x and y spawn location of the enemy
+        _is_facing_right = a boolean telling if the character is facing right
     """
 
     def __init__(self, sprite_path):
@@ -23,6 +24,7 @@ class EnemyBird(BirdCharacter):
         self._max_hp = BASE_ENEMY_HP
         self._remaining_hp = BASE_ENEMY_HP
         self._atk = BASE_ENEMY_ATK
+        self._is_facing_right = True
 
         # change to variables containing window size
         # also change logic to do the entire border around window
@@ -45,9 +47,15 @@ class EnemyBird(BirdCharacter):
         enemy_y = self._sprite_rect.y
 
         if player_x > enemy_x:
+            if not self._is_facing_right:
+                self._sprite_img = pygame.transform.flip(self._sprite_img, True, False)
+                self._is_facing_right = True
             self._sprite_rect.x += BASE_ENEMY_SPD
         elif player_x < enemy_x:
             self._sprite_rect.x -= BASE_ENEMY_SPD
+            if self._is_facing_right:
+                self._sprite_img = pygame.transform.flip(self._sprite_img, True, False)
+                self._is_facing_right = False
 
         if player_y > enemy_y:
             self._sprite_rect.y += BASE_ENEMY_SPD
