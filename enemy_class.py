@@ -36,12 +36,13 @@ class EnemyBird(BirdCharacter):
         self._remaining_hp = BASE_ENEMY_HP
         self._atk = BASE_ENEMY_ATK
         self._is_facing_right = True
-        self._spawn_loc = [
-            random.choice([0, WINDOW_WIDTH]),
-            random.randint(0, WINDOW_HEIGHT),
-        ]
+        self._spawn_loc = (
+            random.choice([0, WINDOW_WIDTH - self._sprite_rect.width]),
+            random.randint(0, WINDOW_HEIGHT - self._sprite_rect.height),
+        )
+        print(self._spawn_loc)
         self._sprite_img = pygame.transform.scale(self._sprite_img, (100, 100))
-        self._sprite_rect = self._sprite_img.get_rect()
+        self._sprite_rect = self._sprite_img.get_rect(topleft=self._spawn_loc)
         self._is_dead = False
 
     def follow_player(self, player):

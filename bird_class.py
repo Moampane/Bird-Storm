@@ -85,7 +85,7 @@ class BirdCharacter(ABC):
         target_y = target.sprite_rect.y
         self_x = self._sprite_rect.x
         self_y = self._sprite_rect.y
-        max_gap = 50
+        max_gap = 20
         if abs(self_x - target_x) <= max_gap or abs(self_y - target_y) <= max_gap:
             target.take_damage(self._atk)
 
