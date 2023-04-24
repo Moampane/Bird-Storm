@@ -21,6 +21,13 @@ class BirdCharacter(ABC):
     """
 
     def __init__(self, sprite_path):
+        """
+        Initializes instance of BirdCharacter.
+
+        Args:
+            sprite_path: a string representing the file path to the character
+            sprite images
+        """
         # Set stats to 0 for now
         self._max_hp = 0
         self._remaining_hp = 0
@@ -74,8 +81,13 @@ class BirdCharacter(ABC):
             target: a BirdCharacter class (either enemy or player)
         """
         # -- attack animation -- #
-        # logic for if target is within the hitbox
-        target.take_damage(self._atk)
+        target_x = target.sprite_rect.x
+        target_y = target.sprite_rect.y
+        self_x = self._sprite_rect.x
+        self_y = self._sprite_rect.y
+        max_gap = 50
+        if abs(self_x - target_x) <= max_gap or abs(self_y - target_y) <= max_gap:
+            target.take_damage(self._atk)
 
     def take_damage(self, opponent_atk):
         """
@@ -87,6 +99,16 @@ class BirdCharacter(ABC):
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self._die()
+
+    @abstractmethod
+    def draw(self, screen):
+        """
+        Base function for drawing the character and associated information on
+        the screen. Will be implemented in subclasses.
+
+        Args:
+            screen: the pygame display surface
+        """
 
     @abstractmethod
     def _die(self):
