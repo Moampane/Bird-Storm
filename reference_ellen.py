@@ -26,10 +26,12 @@ while True:
 
     screen.blit(environment_surface, (0, 0))
 
+    # randomly spawn enemies
     if count % 120 == 0:
         test_bird = EnemyBird("graphics/duck.png")
         test_enemies.append(test_bird)
 
+    # use draw() function to place enemies on screen
     for enemy in test_enemies:
         enemy.draw(screen)
     test_player.draw(screen)
@@ -44,9 +46,9 @@ while True:
         if event.key == pygame.K_RIGHT:
             test_player.sprite_rect.x += 5
 
-    if count > 100:
-        for enemy in test_enemies:
-            enemy.follow_player(test_player)
+    # follow player and attack occasionally
+    for enemy in test_enemies:
+        enemy.follow_player(test_player)
         if count % 20 == 0:
             for enemy in test_enemies:
                 enemy.attack(test_player)
