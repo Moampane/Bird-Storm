@@ -18,7 +18,7 @@ class EnemyBird(BirdCharacter):
     """
     Attributes:
 
-        _spawn_loc: a list containing the x and y spawn location of the enemy
+        _spawn_loc: a tuple containing the x and y spawn location of the enemy
         _is_facing_right = a boolean telling if the enemy is facing right
         _atk_interval_tracker = integer used for spacing out enemy attacks
     """
