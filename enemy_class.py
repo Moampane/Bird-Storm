@@ -130,7 +130,7 @@ class EnemyBird(BirdCharacter):
 
         # Enemy attack logic with spaced out attacks
         self._atk_interval_tracker += 1
-        if self._atk_interval_tracker % 50 == 0:
+        if self._atk_interval_tracker % 100 == 0:
             self.attack(player)
 
         # Enemy follow the player on screen
@@ -148,4 +148,6 @@ class BossEnemyBird(EnemyBird):
         self._max_hp = 10 * BASE_ENEMY_HP
         self._remaining_hp = self._max_hp
         self._atk = 5 * BASE_ENEMY_ATK
-        self._spawn_loc = [0, 0]
+        self._spawn_loc = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2]
+        self._sprite_img = pygame.transform.scale(self._sprite_img, (300, 300))
+        self._sprite_rect = self._sprite_img.get_rect(center=self._spawn_loc)

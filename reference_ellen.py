@@ -15,6 +15,7 @@ environment_surface = pygame.transform.scale(
 
 test_player = EnemyBird("graphics/penguin.png")
 test_enemies = []
+test_boss = BossEnemyBird("graphics/kakapo.png")
 
 count = 0
 while True:
@@ -34,6 +35,7 @@ while True:
     # use draw() function to place enemies on screen
     for enemy in test_enemies:
         enemy.draw(screen, test_player, False)
+    test_boss.draw(screen, test_player, False)
     test_player.draw(screen, test_player, True)
 
     if event.type == pygame.KEYDOWN:

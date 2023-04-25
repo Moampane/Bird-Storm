@@ -75,6 +75,15 @@ class BirdCharacter(ABC):
             target: a BirdCharacter class (either enemy or player)
         """
         # -- attack animation -- #
+        # temporary test atk animation
+        # if self._sprite_path == "graphics/duck.png":
+        #     self._sprite_path = "graphics/bite.png"
+        # else:
+        #     self._sprite_path = "graphics/duck.png"
+
+        # self._sprite_img = pygame.image.load(self._sprite_path).convert_alpha()
+        # self._sprite_img = pygame.transform.scale(self._sprite_img, (100, 100))
+
         if self._sprite_rect.colliderect(target.sprite_rect):
             target.take_damage(self._atk)
 
