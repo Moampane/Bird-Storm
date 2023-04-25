@@ -13,7 +13,7 @@ background_image = pygame.image.load("graphics/background.jpeg").convert()
 background_image = pygame.transform.scale(background_image, (1500, 750))
 
 # player
-test_player = p.Player("graphics/duck.png")
+test_player = p.Player(sprite_path="graphics/duck.png", attack_path="graphics/bite.png")
 
 # game loop
 while True:
@@ -33,6 +33,9 @@ while True:
 
     # Control player
     test_player.move()
+
+    # Player attack
+    test_player.player_attack(screen)
 
     pygame.display.update()
     clock.tick(60)

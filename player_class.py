@@ -18,7 +18,7 @@ PLAYER_START_LOCATION = (WINDOW_WIDTH / 2, WINDOW_HEIGHT - SPRITE_HEIGHT)
 
 
 class Player(BirdCharacter):
-    def __init__(self, sprite_path):
+    def __init__(self, sprite_path, attack_path):
 
         # stats
         self._max_hp = BASE_PLAYER_HP
@@ -27,15 +27,22 @@ class Player(BirdCharacter):
         self._is_dead = False
         self._player_heading = 0
 
-        # Set up sprite and rectangles
-        self._sprite_path = sprite_path
-        self._sprite_img = pygame.image.load(self._sprite_path).convert_alpha()
+        # Set up player sprite and rectangles
+        self._sprite_img = pygame.image.load(sprite_path).convert_alpha()
         self._sprite_img = pygame.transform.scale(
             self._sprite_img, (SPRITE_WIDTH, SPRITE_HEIGHT)
         )
         self._sprite_rect = self._sprite_img.get_rect(center=PLAYER_START_LOCATION)
 
+        # Set up attack sprite
+        self._attack_img = pygame.image.load(attack_path).convert_alpha()
+        self._attack_rect = self._attack_img.get_rect()
+
     def draw(self, screen):
+
+        # Does not draw player if dead
+        if self._is_dead:
+            return
 
         # Draw player on the screen
         screen.blit(self._sprite_img, self._sprite_rect)
@@ -60,17 +67,44 @@ class Player(BirdCharacter):
         if self._remaining_hp <= 0:
             self._is_dead = True
 
-    def move(self):
-        # player movement
+    def player_attack(self, screen):
         keys = pygame.key.get_pressed()
+        # player attack
+        if keys[pygame.K_SPACE]:
+            if self._player_heading == 0:
+                self._attack_img = pygame.transform.scale(self._attack_img, (100, 300))
+                self._attack_rect = self._attack_img.get_rect(
+                    center=(self._sprite_rect.x + 150, self._sprite_rect.y + 50)
+                )
+
+            if self._player_heading == 90:
+                self._attack_img = pygame.transform.scale(self._attack_img, (300, 100))
+                self._attack_rect = self._attack_img.get_rect(
+                    center=(self._sprite_rect.x + 50, self._sprite_rect.y - 50)
+                )
+            if self._player_heading == 180:
+                self._attack_img = pygame.transform.scale(self._attack_img, (100, 300))
+                self._attack_rect = self._attack_img.get_rect(
+                    center=(self._sprite_rect.x - 50, self._sprite_rect.y + 50)
+                )
+            if self._player_heading == 270:
+                self._attack_img = pygame.transform.scale(self._attack_img, (300, 100))
+                self._attack_rect = self._attack_img.get_rect(
+                    center=(self._sprite_rect.x + 50, self._sprite_rect.y + 150)
+                )
+            screen.blit(self._attack_img, self._attack_rect)
+
+    def move(self):
+        keys = pygame.key.get_pressed()
+        # player movement
         if keys[pygame.K_a]:
-            self._sprite_rect.x -= 5
+            self._sprite_rect.x -= BASE_PLAYER_SPD
         if keys[pygame.K_d]:
-            self._sprite_rect.x += 5
+            self._sprite_rect.x += BASE_PLAYER_SPD
         if keys[pygame.K_w]:
-            self._sprite_rect.y -= 5
+            self._sprite_rect.y -= BASE_PLAYER_SPD
         if keys[pygame.K_s]:
-            self._sprite_rect.y += 5
+            self._sprite_rect.y += BASE_PLAYER_SPD
 
         # player rotation
         if keys[pygame.K_UP]:
