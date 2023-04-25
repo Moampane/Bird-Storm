@@ -26,6 +26,8 @@ class Player(BirdCharacter):
         self._atk = BASE_PLAYER_ATK
         self._is_dead = False
         self._player_heading = 0
+        self._atk_interval_tracker = 0
+        self._atk_knockback = 25
 
         # Set up player sprite and rectangles
         self._sprite_img = pygame.image.load(sprite_path).convert_alpha()
@@ -53,7 +55,7 @@ class Player(BirdCharacter):
         ) * self._sprite_rect.width
         pygame.draw.rect(
             screen,
-            "Red",
+            "Green",
             pygame.Rect(
                 self.sprite_rect.x, self.sprite_rect.y - 10, percent_hp_remain_bar, 7
             ),
@@ -67,7 +69,7 @@ class Player(BirdCharacter):
         if self._remaining_hp <= 0:
             self._is_dead = True
 
-    def player_attack(self, screen):
+    def player_attack(self, screen, target):
         keys = pygame.key.get_pressed()
         # player attack
         if keys[pygame.K_SPACE]:
@@ -93,6 +95,32 @@ class Player(BirdCharacter):
                     center=(self._sprite_rect.x + 50, self._sprite_rect.y + 150)
                 )
             screen.blit(self._attack_img, self._attack_rect)
+
+        # detect hit
+        self._atk_interval_tracker += 1
+        if self._atk_interval_tracker % 25 == 0:
+            self.attack(target)
+
+        # reset attack hitbox
+        self._attack_rect = self._attack_img.get_rect(topleft=(-10000, -10000))
+
+    def attack(self, target):
+        player_x = self._sprite_rect.x
+        player_y = self._sprite_rect.y
+        if self._attack_rect.colliderect(target.sprite_rect):
+            target.take_damage(self._atk)
+            if target._sprite_rect.x > player_x and target._sprite_rect.y < player_y:
+                target._sprite_rect.y -= self._atk_knockback
+                target._sprite_rect.x += self._atk_knockback
+            elif target._sprite_rect.x < player_x and target._sprite_rect.y < player_y:
+                target._sprite_rect.y -= self._atk_knockback
+                target._sprite_rect.x -= self._atk_knockback
+            elif target._sprite_rect.x > player_x and target._sprite_rect.y > player_y:
+                target._sprite_rect.y += self._atk_knockback
+                target._sprite_rect.x += self._atk_knockback
+            else:
+                target._sprite_rect.y += self._atk_knockback
+                target._sprite_rect.x -= self._atk_knockback
 
     def move(self):
         keys = pygame.key.get_pressed()
