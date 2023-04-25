@@ -1,11 +1,11 @@
 """
-File for the Interactables class.
+File for the Interactable class.
 """
 from abc import ABC, abstractmethod
 import pygame
 
 
-class Interactables(ABC):
+class Interactable(ABC):
     """
     Abstract base class representing any interactable object on the screen.
 
