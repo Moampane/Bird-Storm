@@ -58,7 +58,7 @@ class EnemyBird(BirdCharacter):
         Updates enemy location to follow the player's location.
 
         Args:
-            player: an instance of BirdPlayer that represents the player.
+            player: an instance of Player that represents the player.
         """
         player_x = player.sprite_rect.x
         player_y = player.sprite_rect.y
@@ -103,7 +103,8 @@ class EnemyBird(BirdCharacter):
 
         Args:
             screen: the pygame display surface
-            player: the BirdPlayer class player
+            player: an instance of the Player class representing the player's
+            character
         """
         # If enemy is dead, don't execute function
         if self._is_dead:
