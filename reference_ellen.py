@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Bird Storm")
 clock = pygame.time.Clock()
 
-environment_surface = pygame.image.load("test_map_surface.jpg").convert()
+environment_surface = pygame.image.load("graphics/test_map_surface.jpg").convert()
 environment_surface = pygame.transform.scale(
     environment_surface, (WINDOW_WIDTH, WINDOW_HEIGHT)
 )
