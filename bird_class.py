@@ -16,27 +16,21 @@ class BirdCharacter(ABC):
         character does per hit
         _sprite_path: a string representing the file path to the folder
         containing the character's different sprites
-        _sprite_img = a pygame surface containing the image of the character
-        _sprite_rect = a pygame rectangle mapped to the character sprite
+        _sprite_img: a pygame surface containing the image of the character
+        _sprite_rect: a pygame rectangle mapped to the character sprite
+        _is_dead: a boolean telling if the character is dead or not
     """
 
+    @abstractmethod
     def __init__(self, sprite_path):
         """
-        Initializes instance of BirdCharacter.
+        Base initialization function for all BirdCharacter subclass instances.
+        Will be implemented for each subclass.
 
         Args:
             sprite_path: a string representing the file path to the character
             sprite images
         """
-        # Set stats to 0 for now
-        self._max_hp = 0
-        self._remaining_hp = 0
-        self._atk = 0
-
-        # load character imgs in pygame
-        self._sprite_path = sprite_path
-        self._sprite_img = pygame.image.load(sprite_path).convert_alpha()
-        self._sprite_rect = self._sprite_img.get_rect()
 
     @property
     def max_hp(self):
@@ -81,12 +75,7 @@ class BirdCharacter(ABC):
             target: a BirdCharacter class (either enemy or player)
         """
         # -- attack animation -- #
-        target_x = target.sprite_rect.x
-        target_y = target.sprite_rect.y
-        self_x = self._sprite_rect.x
-        self_y = self._sprite_rect.y
-        max_gap = 20
-        if abs(self_x - target_x) <= max_gap or abs(self_y - target_y) <= max_gap:
+        if self._sprite_rect.colliderect(target.sprite_rect):
             target.take_damage(self._atk)
 
     def take_damage(self, opponent_atk):
