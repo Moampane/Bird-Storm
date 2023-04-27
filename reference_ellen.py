@@ -2,6 +2,8 @@ import pygame
 from sys import exit
 from bird_class import *
 from enemy_class import *
+from interactable_class import *
+from nest_class import *
 
 pygame.init()
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -17,6 +19,13 @@ test_player = EnemyBird("graphics/penguin.png")
 test_enemies = []
 test_boss = BossEnemyBird("graphics/kakapo.png")
 
+# randomly spawn nests
+num_nests = 10
+nests = []
+for i in range(0, num_nests):
+    nest = Nest("graphics/nest.png")
+    nests.append(nest)
+
 count = 0
 while True:
     count += 1
@@ -26,6 +35,8 @@ while True:
             exit()
 
     screen.blit(environment_surface, (0, 0))
+    for nest in nests:
+        nest.draw(screen, test_player)
 
     # randomly spawn enemies
     if count % 360 == 0:
@@ -35,7 +46,7 @@ while True:
     # use draw() function to place enemies on screen
     for enemy in test_enemies:
         enemy.draw(screen, test_player, False)
-    test_boss.draw(screen, test_player, False)
+    # test_boss.draw(screen, test_player, False)
     test_player.draw(screen, test_player, True)
 
     if event.type == pygame.KEYDOWN:

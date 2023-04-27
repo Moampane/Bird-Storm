@@ -35,7 +35,7 @@ class Interactable(ABC):
         self._img = pygame.transform.scale(self._img, (50, 50))
         self._img_rect = self._img.get_rect()
         self._spawn_loc = (
-            random.randint([0, WINDOW_WIDTH - self._img_rect.width]),
+            random.randint(0, WINDOW_WIDTH - self._img_rect.width),
             random.randint(0, WINDOW_HEIGHT - self._img_rect.height),
         )
         self._img_rect = self._img.get_rect(center=self._spawn_loc)
