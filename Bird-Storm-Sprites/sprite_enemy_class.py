@@ -1,7 +1,9 @@
 """
 File for enemy classes.
 """
-import pygame, sprite_bird_class, random
+import pygame
+import random
+from sprite_bird_class import BirdCharacter
 
 ENEMY_WIDTH = 100
 ENEMY_HEIGHT = 100
@@ -10,9 +12,24 @@ ENEMY_ATK = 2
 ENEMY_BASE_MAX_HP = 20
 
 
-class Enemy(sprite_bird_class.BirdCharacter):
-    def __init__(self, image_path, bg, player):
-        super().__init__(image_path, bg)
+class Enemy(BirdCharacter):
+    """
+    A BirdCharacter class representing the enemies.
+    Attributes:
+
+    """
+
+    def __init__(self, image_path, screen, player):
+        """
+        Initializes instance of Enemy.
+
+        Args:
+            image_path: a string containing the file path to the images for the
+            player
+            screen: the surface that the game is displayed on
+            player: an instance of the Player character
+        """
+        super().__init__(image_path, screen)
         self._width = ENEMY_WIDTH
         self._height = ENEMY_HEIGHT
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
@@ -20,11 +37,11 @@ class Enemy(sprite_bird_class.BirdCharacter):
         self._atk = ENEMY_ATK
         self._ms = ENEMY_MOVESPEED
         self._remaining_hp = self._max_hp
-        spawn_loc = (
-            random.choice([0 - self._width, bg.get_width() + self._width]),
-            random.randint(0, bg.get_height() - self._height),
+        self._start_pos = (
+            random.choice([0 - self._width, screen.get_width() + self._width]),
+            random.randint(0, screen.get_height() - self._height),
         )
-        self._rect = self._image.get_rect(center=spawn_loc)
+        self._rect = self._image.get_rect(center=self._start_pos)
         self.player = player
         self.is_facing_right = True
 
@@ -66,7 +83,7 @@ class Enemy(sprite_bird_class.BirdCharacter):
             environment.num_enemies_slain += 1
 
 
-class Projectile_Boss(sprite_bird_class.BirdCharacter):
+class Projectile_Boss(BirdCharacter):
     def __init__(
         self, max_health, attack, movespeed, image_path, start_pos, size, bg, player
     ):
@@ -176,195 +193,3 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
             self._rect.y += self._ms
         elif new_y < self.rect.y:
             self._rect.y -= self._ms
-
-    def go_to_top_left(self):
-
-        if self.position == "center":
-            if self._rect.x > 0:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y > 0:
-                self._rect.y -= self._screen.get_height() / 200
-            if self._rect.x <= 0 and self._rect.y <= 0:
-                self.position = "top left"
-                self.complete_move = True
-
-        if self.position == "top right":
-            if self._rect.x > 0:
-                self._rect.x -= 7.35
-            if self._rect.x <= 0:
-                self.position = "top left"
-                self.complete_move = True
-
-        if self.position == "bot left":
-            if self._rect.y > 0:
-                self._rect.y -= 7.35
-            if self._rect.y <= 0:
-                self.position = "top left"
-                self.complete_move = True
-
-        if self.position == "bot right":
-            if self._rect.x > 0:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y > 0:
-                self._rect.y -= self._screen.get_height() / 200
-            if self._rect.x <= 0 and self._rect.y <= 0:
-                self.position = "top left"
-                self.complete_move = True
-
-    def go_to_top_right(self):
-
-        if self.position == "center":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y > 0:
-                self._rect.y -= self._screen.get_height() / 200
-            if self._rect.x >= self._screen.get_width() - 200 and self._rect.y <= 0:
-                self.position = "top right"
-                self.complete_move = True
-
-        if self.position == "top left":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += 7.35
-            if self._rect.x >= self._screen.get_width() - 200:
-                self.position = "top right"
-                self.complete_move = True
-
-        if self.position == "bot left":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y > 0:
-                self._rect.y -= self._screen.get_height() / 200
-            if self._rect.x >= self._screen.get_width() - 200 and self._rect.y <= 0:
-                self.position = "top right"
-                self.complete_move = True
-
-        if self.position == "bot right":
-            if self._rect.y > 0:
-                self._rect.y -= 7.35
-            if self._rect.y <= 0:
-                self.position = "top right"
-                self.complete_move = True
-
-    def go_to_bottom_left(self):
-
-        if self.position == "center":
-            if self._rect.x > 0:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += self._screen.get_height() / 200
-            if self._rect.x <= 0 and self._rect.y >= self._screen.get_height() - 200:
-                self.position = "bot left"
-                self.complete_move = True
-
-        if self.position == "top left":
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += 7.35
-            if self._rect.y > self._screen.get_height() - 200:
-                self.position = "bot left"
-                self.complete_move = True
-
-        if self.position == "top right":
-            if self._rect.x > 0:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += self._screen.get_height() / 200
-            if self._rect.x <= 0 and self._rect.y >= self._screen.get_height() - 200:
-                self.position = "bot left"
-                self.complete_move = True
-
-        if self.position == "bot right":
-            if self._rect.x > 0:
-                self._rect.x -= 7.35
-            if self._rect.x <= 0:
-                self.position = "bot left"
-                self.complete_move = True
-
-    def go_to_bottom_right(self):
-
-        if self.position == "center":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += self._screen.get_height() / 200
-            if (
-                self._rect.x >= self._screen.get_width() - 200
-                and self._rect.y >= self._screen.get_height() - 200
-            ):
-                self.position = "bot right"
-                self.complete_move = True
-
-        if self.position == "top left":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += self._screen.get_height() / 200
-            if (
-                self._rect.x >= self._screen.get_width() - 200
-                and self._rect.y >= self._screen.get_height() - 200
-            ):
-                self.position = "bot right"
-                self.complete_move = True
-
-        if self.position == "top right":
-            if self._rect.y < self._screen.get_height() - 200:
-                self._rect.y += 7.35
-            if self._rect.y >= self._screen.get_height() - 200:
-                self.position = "bot right"
-                self.complete_move = True
-
-        if self.position == "bot left":
-            if self._rect.x < self._screen.get_width() - 200:
-                self._rect.x += 7.35
-            if self._rect.x >= self._screen.get_width() - 200:
-                self.position = "bot right"
-                self.complete_move = True
-
-    def go_to_center(self):
-
-        if self.position == "top left":
-            if self._rect.x < self._screen.get_width() / 2 - 100:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() / 2 - 100:
-                self._rect.y += self._screen.get_height() / 200
-            if (
-                self._rect.x >= self._screen.get_width() / 2 - 100
-                and self._rect.y >= self._screen.get_height() / 2 - 100
-            ):
-                self.position = "center"
-                self.complete_move = True
-
-        if self.position == "top right":
-            if self._rect.x > self._screen.get_width() / 2 - 100:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y < self._screen.get_height() / 2 - 100:
-                self._rect.y += self._screen.get_height() / 200
-            if (
-                self._rect.x <= self._screen.get_width() / 2 - 100
-                and self._rect.y >= self._screen.get_height() / 2 - 100
-            ):
-                self.position = "center"
-                self.complete_move = True
-
-        if self.position == "bot left":
-            if self._rect.x < self._screen.get_width() / 2 - 100:
-                self._rect.x += self._screen.get_width() / 200
-            if self._rect.y > self._screen.get_height() / 2 - 100:
-                self._rect.y -= self._screen.get_height() / 200
-            if (
-                self._rect.x >= self._screen.get_width() / 2 - 100
-                and self._rect.y <= self._screen.get_height() / 2 - 100
-            ):
-                self.position = "center"
-                self.complete_move = True
-
-        if self.position == "bot right":
-            if self._rect.x > self._screen.get_width() / 2 - 100:
-                self._rect.x -= self._screen.get_width() / 200
-            if self._rect.y > self._screen.get_height() / 2 - 100:
-                self._rect.y -= self._screen.get_height() / 200
-            if (
-                self._rect.x <= self._screen.get_width() / 2 - 100
-                and self._rect.y <= self._screen.get_height() / 2 - 100
-            ):
-                self.position = "center"
-                self.complete_move = True
