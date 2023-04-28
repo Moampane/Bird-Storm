@@ -19,17 +19,17 @@ class Enemy(BirdCharacter):
 
     """
 
-    def __init__(self, image_path, screen, player):
+    def __init__(self, image_path, bg, player):
         """
         Initializes instance of Enemy.
 
         Args:
             image_path: a string containing the file path to the images for the
             player
-            screen: the surface that the game is displayed on
+            bg: the surface that the game is displayed on
             player: an instance of the Player character
         """
-        super().__init__(image_path, screen)
+        super().__init__(image_path, bg)
         self._width = ENEMY_WIDTH
         self._height = ENEMY_HEIGHT
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
@@ -38,8 +38,8 @@ class Enemy(BirdCharacter):
         self._ms = ENEMY_MOVESPEED
         self._remaining_hp = self._max_hp
         self._start_pos = (
-            random.choice([0 - self._width, screen.get_width() + self._width]),
-            random.randint(0, screen.get_height() - self._height),
+            random.choice([0 - self._width, bg.get_width() + self._width]),
+            random.randint(0, bg.get_height() - self._height),
         )
         self._rect = self._image.get_rect(center=self._start_pos)
         self.player = player
