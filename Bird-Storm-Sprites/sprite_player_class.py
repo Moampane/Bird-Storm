@@ -122,6 +122,10 @@ class Player(BirdCharacter):
 
         self.update_img()
 
+    @property
+    def player_heading(self):
+        return self._player_heading
+
 
 class Attack(pygame.sprite.Sprite):
     def __init__(self, character, group):
@@ -138,19 +142,19 @@ class Attack(pygame.sprite.Sprite):
         # center=(self.player.rect.x, self.player.rect.y)
 
     def update(self):
-        if self.player._player_heading == 0:
+        if self.player.player_heading == 0:
             self._rect = self._image.get_rect(
                 center=(self.player.rect.x + 150, self.player.rect.y + 50)
             )
-        if self.player._player_heading == 90:
+        if self.player.player_heading == 90:
             self._rect = self._image.get_rect(
                 center=(self.player.rect.x + 50, self.player.rect.y - 50)
             )
-        if self.player._player_heading == 180:
+        if self.player.player_heading == 180:
             self._rect = self._image.get_rect(
                 center=(self.player.rect.x - 50, self.player.rect.y + 50)
             )
-        if self.player._player_heading == 270:
+        if self.player.player_heading == 270:
             self._rect = self._image.get_rect(
                 center=(self.player.rect.x + 50, self.player.rect.y + 150)
             )
