@@ -98,7 +98,6 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
     def update(self, timer):
         super().update()
 
-        print(timer)
         if (
             self._rect.y < self._screen.get_height() / 2 - 100
             and self.incomplete_intro
