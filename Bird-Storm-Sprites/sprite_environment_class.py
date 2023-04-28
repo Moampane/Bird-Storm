@@ -14,17 +14,31 @@ YELLOW = (255, 255, 0)
 class Environment(pygame.sprite.Sprite):
     def __init__(self, bg_path, bg_width, bg_height):
         pygame.sprite.Sprite.__init__(self)
-        self.screen_width = bg_width
-        self.screen_height = bg_height
-        self.image = pygame.image.load(bg_path)
-        self.image = pygame.transform.scale(
-            self.image, (self.screen_width, self.screen_height)
+        self._screen_width = bg_width
+        self._screen_height = bg_height
+        self._image = pygame.image.load(bg_path)
+        self._image = pygame.transform.scale(
+            self._image, (self._screen_width, self._screen_height)
         )
-        self.rect = self.image.get_rect(topleft=(0, 0))
+        self._rect = self._image.get_rect(topleft=(0, 0))
         self.num_enemies = 0
         self.num_enemies_slain = 0
         self.level = 1
         self.spawn_timer = 0
+
+    @property
+    def image(self):
+        """
+        Returns the pygame image.
+        """
+        return self._image
+
+    @property
+    def rect(self):
+        """
+        Returns the pygame rectangle.
+        """
+        return self._rect
 
     def update(self, screen, enemy_group, boss_group, player):
         self.display_num_enemies(screen, enemy_group)
@@ -36,12 +50,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 1:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -53,12 +62,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 2:
             if self.spawn_timer % 200 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -70,12 +74,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 3:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=50,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -87,12 +86,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 4:
             if self.spawn_timer % 100 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -139,7 +133,7 @@ class Environment(pygame.sprite.Sprite):
         level_text = FONT.render(f"Level {self.level}", False, RED)
         level_text_size = pygame.font.Font.size(FONT, f"Level {self.level}")
         level_text_width = level_text_size[0]
-        screen.blit(level_text, (self.screen_width / 2 - level_text_width / 2, 0))
+        screen.blit(level_text, (self._screen_width / 2 - level_text_width / 2, 0))
 
     def display_num_enemies_slain(self, screen):
         # Number of enemies slain text
@@ -150,7 +144,7 @@ class Environment(pygame.sprite.Sprite):
             FONT, f"Enemies Slain: {self.num_enemies_slain}"
         )
         slain_text_width = slain_text_size[0]
-        screen.blit(enemies_slain_counter, (self.screen_width - slain_text_width, 0))
+        screen.blit(enemies_slain_counter, (self._screen_width - slain_text_width, 0))
 
     def display_win(self, screen):
         # Level text
@@ -159,7 +153,7 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             victory_text,
             (
-                self.screen_width / 2 - victory_text_size[0] / 2,
-                self.screen_height / 2 - victory_text_size[1] / 2,
+                self._screen_width / 2 - victory_text_size[0] / 2,
+                self._screen_height / 2 - victory_text_size[1] / 2,
             ),
         )
