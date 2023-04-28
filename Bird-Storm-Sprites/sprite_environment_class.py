@@ -36,12 +36,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 1:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -53,12 +48,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 2:
             if self.spawn_timer % 200 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -70,12 +60,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 3:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=50,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )
@@ -87,12 +72,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 4:
             if self.spawn_timer % 100 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    max_health=20,
-                    attack=2,
-                    movespeed=2,
                     image_path="graphics/penguin.png",
-                    start_pos=(0, 0),
-                    size=(100, 100),
                     bg=screen,
                     player=player,
                 )

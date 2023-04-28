@@ -3,12 +3,24 @@ File for enemy classes.
 """
 import pygame, sprite_bird_class, random
 
+ENEMY_WIDTH = 100
+ENEMY_HEIGHT = 100
+ENEMY_MOVESPEED = 2
+ENEMY_ATK = 2
+ENEMY_BASE_MAX_HP = 20
+
 
 class Enemy(sprite_bird_class.BirdCharacter):
-    def __init__(
-        self, max_health, attack, movespeed, image_path, start_pos, size, bg, player
-    ):
-        super().__init__(max_health, attack, movespeed, image_path, start_pos, size, bg)
+    def __init__(self, image_path, bg, player):
+        super().__init__(image_path, bg)
+        self.width = ENEMY_WIDTH
+        self.height = ENEMY_HEIGHT
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.max_hp = ENEMY_BASE_MAX_HP
+        self.atk = ENEMY_ATK
+        self.ms = ENEMY_MOVESPEED
+        self.remaining_hp = self.max_hp
         spawn_loc = (
             random.choice([0 - self.width, bg.get_width() + self.width]),
             random.randint(0, bg.get_height() - self.height),
@@ -59,10 +71,19 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
     def __init__(
         self, max_health, attack, movespeed, image_path, start_pos, size, bg, player
     ):
-        super().__init__(max_health, attack, movespeed, image_path, start_pos, size, bg)
+        super().__init__(image_path, bg)
+        self.width = size[0]
+        self.height = size[1]
+        self.max_hp = max_health
+        self.atk = attack
+        self.ms = movespeed
+        self.remaining_hp = self.max_hp
         self.player = player
         self.incomplete_intro = True
         self.position = "center"
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.rect = self.image.get_rect(center=start_pos)
         self.complete_move = False
         self.move = random.choice(
             [

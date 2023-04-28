@@ -18,28 +18,23 @@ PLAYER_HEIGHT = 100
 class Player(BirdCharacter):
     def __init__(self, image_path, screen):
         super().__init__(image_path, screen)
-        self._max_hp = MAX_PLAYER_HEALTH
-        self._remaining_hp = self._max_hp
-        self._atk = PLAYER_ATK
-        self._ms = PLAYER_MOVESPEED
+        self.max_hp = MAX_PLAYER_HEALTH
+        self.remaining_hp = self.max_hp
+        self.atk = PLAYER_ATK
+        self.ms = PLAYER_MOVESPEED
         self.image = pygame.image.load(image_path).convert_alpha()
-        self._width = PLAYER_WIDTH
-        self._height = PLAYER_HEIGHT
-        self._image = pygame.transform.scale(self._image, (self._width, self._height))
-        self._start_pos = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
-        self.rect = self.image.get_rect(center=self._start_pos)
-        self._isdead = False
-        self._screen = screen
+        self.width = PLAYER_WIDTH
+        self.height = PLAYER_HEIGHT
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.start_pos = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
+        self.rect = self.image.get_rect(center=self.start_pos)
+        self.isdead = False
+        self.screen = screen
         self._is_facing_right = True
         self._is_facing_forward = True
         self._is_atking = False
         self._char_name = image_path.partition("_")[0]
-
-    # def image(self):
-    #     return self._image
-
-    # def rect(self):
-    #     return self._rect
+        self._player_heading = 0
 
     def update_img(self):
         """
@@ -66,7 +61,7 @@ class Player(BirdCharacter):
         )
 
         self.image = pygame.image.load(updated_img_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self._width, self._height))
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
     def update(self):
         super().update()
@@ -74,17 +69,21 @@ class Player(BirdCharacter):
 
         # player movement
         if keys[pygame.K_a]:
-            self.rect.x -= self._ms
+            self.rect.x -= self.ms
             self._is_facing_right = False
+            self._player_heading = 180
         if keys[pygame.K_d]:
-            self.rect.x += self._ms
+            self.rect.x += self.ms
             self._is_facing_right = True
+            self._player_heading = 0
         if keys[pygame.K_w]:
-            self.rect.y -= self._ms
+            self.rect.y -= self.ms
             self._is_facing_forward = False
+            self._player_heading = 90
         if keys[pygame.K_s]:
-            self.rect.y += self._ms
+            self.rect.y += self.ms
             self._is_facing_forward = True
+            self._player_heading = 270
 
         self.update_img()
 
