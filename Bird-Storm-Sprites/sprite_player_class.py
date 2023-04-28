@@ -4,13 +4,9 @@ File for player classes.
 import pygame
 from sprite_bird_class import BirdCharacter
 
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
-
 BASE_PLAYER_HEALTH = 1000
 PLAYER_ATK = 5
 PLAYER_MOVESPEED = 5
-PLAYER_START_POS = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
 PLAYER_WIDTH = 100
 PLAYER_HEIGHT = 100
 
@@ -20,11 +16,6 @@ class Player(BirdCharacter):
     A class representing the BirdCharacter Player.
 
     Attributes:
-
-    """
-
-    def __init__(self, image_path, screen):
-        """
         self._max_hp: an integer representing the max health of the player
         self._remaining_hp: an integer representing the remaining health
         of the player
@@ -48,6 +39,15 @@ class Player(BirdCharacter):
         self._char_name: a string representing the first section of the player
         image file path
         self._player_heading: an integer representing the heading of the player
+    """
+
+    def __init__(self, image_path, screen):
+        """
+        Initializes an instance of the Player.
+        Args:
+            image_path: a string containing the file path to the images for the
+            player
+            screen: the surface that the game is displayed on
         """
         super().__init__(image_path, screen)
         self._max_hp = BASE_PLAYER_HEALTH
@@ -57,7 +57,10 @@ class Player(BirdCharacter):
         self._width = PLAYER_WIDTH
         self._height = PLAYER_HEIGHT
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
-        self._start_pos = PLAYER_START_POS
+        self._start_pos = (
+            screen.get_width() / 2,
+            screen.get_height() - self._height / 2,
+        )
         self._rect = self._image.get_rect(center=self._start_pos)
         self._is_facing_right = True
         self._is_facing_forward = True
