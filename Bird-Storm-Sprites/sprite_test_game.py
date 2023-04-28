@@ -17,14 +17,8 @@ env_group = pygame.sprite.Group()
 env_group.add(environment)
 
 # Player Group
-start_position = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
 mc = sprite_player_class.Player(
-    max_health=1000,
-    attack=5,
-    movespeed=5,
     image_path="graphics/duck.png",
-    start_pos=start_position,
-    size=(100, 100),
     bg=screen,
 )
 player_group = pygame.sprite.Group()
