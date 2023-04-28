@@ -143,7 +143,7 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
         Args:
             new_pos: a string input representing the new location
         """
-        EDGE_GAP = 10
+        EDGE_GAP = 20
 
         if new_pos == "":
             return
@@ -159,15 +159,15 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
             new_x = self._screen.get_width() - self._width - EDGE_GAP
 
         if new_pos == "center":
-            new_x = self._screen.get_width() / 2
-            new_y = self._screen.get_height() / 2
+            new_x = self._screen.get_width() / 2 - self._width / 2
+            new_y = self._screen.get_height() / 2 - self._height / 2
 
         if new_x > self.rect.x:
             if not self.is_facing_right:
                 self._image = pygame.transform.flip(self._image, True, False)
                 self.is_facing_right = True
             self._rect.x += self._ms
-        else:
+        elif new_x < self.rect.x:
             if self.is_facing_right:
                 self._image = pygame.transform.flip(self._image, True, False)
                 self.is_facing_right = False
@@ -175,7 +175,7 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
 
         if new_y > self.rect.y:
             self._rect.y += self._ms
-        else:
+        elif new_y < self.rect.y:
             self._rect.y -= self._ms
 
     def go_to_top_left(self):
