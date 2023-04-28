@@ -17,10 +17,7 @@ env_group = pygame.sprite.Group()
 env_group.add(environment)
 
 # Player Group
-mc = sprite_player_class.Player(
-    image_path="graphics/duck.png",
-    bg=screen,
-)
+mc = sprite_player_class.Player("graphics/duck.png", screen)
 player_group = pygame.sprite.Group()
 player_group.add(mc)
 

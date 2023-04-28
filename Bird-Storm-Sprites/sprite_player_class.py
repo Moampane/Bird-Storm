@@ -22,35 +22,46 @@ class Player(BirdCharacter):
         self._remaining_hp = self._max_hp
         self._atk = PLAYER_ATK
         self._ms = PLAYER_MOVESPEED
-        self._image = pygame.image.load(image_path)
+        self._image = pygame.image.load(image_path).convert_alpha()
         self._width = PLAYER_WIDTH
         self._height = PLAYER_HEIGHT
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
-        self._start_pos = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50
+        self._start_pos = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
         self._rect = self.image.get_rect(center=self._start_pos)
         self._isdead = False
         self._screen = bg
-        self._player_heading = 0
+        self._is_facing_right = True
+        self._is_facing_forward = True
+        self._is_atking = False
 
+    def update_img(self):
+        """
+        Updates the character image to be correct according to the current
+        attack and heading position.
+        """
+        self._image = pygame.image.load(image_path).convert_alpha()
+        self._image = pygame.transform.scale(self._image, (self._width, self._height))
+    
     def update(self):
         super().update()
         keys = pygame.key.get_pressed()
 
         # player movement
         if keys[pygame.K_a]:
-            self.rect.x -= self.ms
+            self._rect.x -= self._ms
+            
         if keys[pygame.K_d]:
-            self.rect.x += self.ms
+            self._rect.x += self._ms
         if keys[pygame.K_w]:
-            self.rect.y -= self.ms
+            self._rect.y -= self._ms
         if keys[pygame.K_s]:
-            self.rect.y += self.ms
+            self._rect.y += self._ms
 
         # player rotation
         if keys[pygame.K_UP]:
             if self._player_heading == 0:
                 change = 90
-                self.image = pygame.transform.rotate(self.image, change)
+                self._image = pygame.transform.rotate(self._image, change)
                 self._player_heading += change
             elif self._player_heading == 180:
                 change = -90
@@ -99,6 +110,8 @@ class Player(BirdCharacter):
                 change = -270
                 self.image = pygame.transform.rotate(self.image, change)
                 self._player_heading += change
+
+    def attack()
 
 
 class Attack(pygame.sprite.Sprite):
