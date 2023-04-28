@@ -22,5 +22,5 @@ class BirdCharacter(pygame.sprite.Sprite):
         pygame.draw.rect(
             self._screen,
             "Green",
-            pygame.Rect(self._rect.x, self._rect.y - 10, hp_bar_percent, 7),
+            pygame.Rect(self.rect.x, self.rect.y - 10, hp_bar_percent, 7),
         )
