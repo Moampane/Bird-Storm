@@ -124,42 +124,59 @@ class Player(BirdCharacter):
 
     @property
     def player_heading(self):
+        """
+        Returns the player_heading of a Player object.
+        """
         return self._player_heading
 
 
 class Attack(pygame.sprite.Sprite):
+    """
+    Class representing the player's attack.
+
+    Attributes:
+        _player: A Player object representing the player's character.
+        _image: A pygame image representing the player's attack animation.
+        _rect: A pygame rectangle mapped to the attack's image
+        _animation_loop: An int representing the frame the animation is on.
+    """
+
     def __init__(self, character, group):
+        """
+        Constructor for Attack class.
+
+        Args:
+            character: A Player object representing the player's character.
+            Assigned to _player attribute.
+            group: A pygame sprite group holding the Attack object.
+        """
         super().__init__()
         group.add(self)
-        self.player = character
+        self._player = character
         self._image = pygame.image.load("graphics/bite.png")
         self._image = pygame.transform.scale(self._image, (100, 100))
         self._rect = self._image.get_rect(center=(-1000, -1000))
-        self.animation_loop = 0
-
-        # self.animation_loop = 0
-        # self.group = attack_group
-        # center=(self.player.rect.x, self.player.rect.y)
+        self._animation_loop = 0
 
     def update(self):
-        if self.player.player_heading == 0:
+        if self._player.player_heading == 0:
             self._rect = self._image.get_rect(
-                center=(self.player.rect.x + 150, self.player.rect.y + 50)
+                center=(self._player.rect.x + 150, self._player.rect.y + 50)
             )
-        if self.player.player_heading == 90:
+        if self._player.player_heading == 90:
             self._rect = self._image.get_rect(
-                center=(self.player.rect.x + 50, self.player.rect.y - 50)
+                center=(self._player.rect.x + 50, self._player.rect.y - 50)
             )
-        if self.player.player_heading == 180:
+        if self._player.player_heading == 180:
             self._rect = self._image.get_rect(
-                center=(self.player.rect.x - 50, self.player.rect.y + 50)
+                center=(self._player.rect.x - 50, self._player.rect.y + 50)
             )
-        if self.player.player_heading == 270:
+        if self._player.player_heading == 270:
             self._rect = self._image.get_rect(
-                center=(self.player.rect.x + 50, self.player.rect.y + 150)
+                center=(self._player.rect.x + 50, self._player.rect.y + 150)
             )
-        self.animation_loop += 0.5
-        if self.animation_loop >= 5:
+        self._animation_loop += 0.5
+        if self._animation_loop >= 5:
             self.kill()
 
     @property
