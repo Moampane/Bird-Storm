@@ -7,7 +7,7 @@ from sprite_bird_class import BirdCharacter
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
-MAX_PLAYER_HEALTH = 1000
+BASE_PLAYER_HEALTH = 1000
 PLAYER_ATK = 5
 PLAYER_MOVESPEED = 5
 PLAYER_START_POS = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50
@@ -18,7 +18,7 @@ PLAYER_HEIGHT = 100
 class Player(BirdCharacter):
     def __init__(self, image_path, screen):
         super().__init__(image_path, screen)
-        self._max_hp = MAX_PLAYER_HEALTH
+        self._max_hp = BASE_PLAYER_HEALTH
         self._remaining_hp = self._max_hp
         self._atk = PLAYER_ATK
         self._ms = PLAYER_MOVESPEED

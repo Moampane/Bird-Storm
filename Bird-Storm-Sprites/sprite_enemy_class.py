@@ -84,14 +84,9 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
         self._rect = self._image.get_rect(center=start_pos)
         self.complete_move = False
-        self.move = random.choice(
-            [
-                self.go_to_center,
-                self.go_to_bottom_left,
-                self.go_to_bottom_right,
-                self.go_to_top_left,
-                self.go_to_top_right,
-            ]
+        self.is_facing_right = True
+        self._new_pos = random.choice(
+            ["center", "bottom left", "bottom right", "top left", "top right"]
         )
 
     def take_damage(self, opponent_atk, environment):
@@ -124,19 +119,64 @@ class Projectile_Boss(sprite_bird_class.BirdCharacter):
         # self.go_to_top_right()
         # self.go_to_bottom_left()
         # self.go_to_bottom_right()
-
         if not self.incomplete_intro:
             if timer % 250 == 0:
-                self.move = random.choice(
-                    [
-                        self.go_to_center,
-                        self.go_to_bottom_left,
-                        self.go_to_bottom_right,
-                        self.go_to_top_left,
-                        self.go_to_top_right,
-                    ]
+                self._new_pos = random.choice(
+                    ["center", "bottom left", "bottom right", "top left", "top right"]
                 )
-            self.move()
+                # self.move = random.choice(
+                #     [
+                #         self.go_to_center,
+                #         self.go_to_bottom_left,
+                #         self.go_to_bottom_right,
+                #         self.go_to_top_left,
+                #         self.go_to_top_right,
+                #     ]
+                # )
+            self.move_to_pos(self._new_pos)
+
+    def move_to_pos(self, new_pos=""):
+        """
+        Moves boss enemy to the new position based on what string position
+        is inputted.
+
+        Args:
+            new_pos: a string input representing the new location
+        """
+        EDGE_GAP = 10
+
+        if new_pos == "":
+            return
+
+        if "bottom" in new_pos:
+            new_y = self._screen.get_height() - self._height - EDGE_GAP
+        else:
+            new_y = EDGE_GAP
+
+        if "left" in new_pos:
+            new_x = EDGE_GAP
+        else:
+            new_x = self._screen.get_width() - self._width - EDGE_GAP
+
+        if new_pos == "center":
+            new_x = self._screen.get_width() / 2
+            new_y = self._screen.get_height() / 2
+
+        if new_x > self.rect.x:
+            if not self.is_facing_right:
+                self._image = pygame.transform.flip(self._image, True, False)
+                self.is_facing_right = True
+            self._rect.x += self._ms
+        else:
+            if self.is_facing_right:
+                self._image = pygame.transform.flip(self._image, True, False)
+                self.is_facing_right = False
+            self._rect.x -= self._ms
+
+        if new_y > self.rect.y:
+            self._rect.y += self._ms
+        else:
+            self._rect.y -= self._ms
 
     def go_to_top_left(self):
 
