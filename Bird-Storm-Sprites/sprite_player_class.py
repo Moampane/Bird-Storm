@@ -10,13 +10,45 @@ SCREEN_HEIGHT = 720
 BASE_PLAYER_HEALTH = 1000
 PLAYER_ATK = 5
 PLAYER_MOVESPEED = 5
-PLAYER_START_POS = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50
+PLAYER_START_POS = (SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
 PLAYER_WIDTH = 100
 PLAYER_HEIGHT = 100
 
 
 class Player(BirdCharacter):
+    """
+    A class representing the BirdCharacter Player.
+
+    Attributes:
+
+    """
+
     def __init__(self, image_path, screen):
+        """
+        self._max_hp: an integer representing the max health of the player
+        self._remaining_hp: an integer representing the remaining health
+        of the player
+        self._atk: an integer representing the amount of damage the player
+        does in a single attack
+        self._ms: an integer representing how fast the player moves across
+        the screen
+        self._width: an integer representing the width of the player image
+        self._height: an integer representing the height of the player
+        image
+        self._image: a pygame image representing the image of the player
+        self._start_pos: a tuple containing the (x,y) starting position
+        of the player
+        self._rect: a pygame rectangle mapped to the player's image
+        self._screen: the surface that the game is displayed on
+        self._is_facing_right: a boolean representing if the player is facing
+        right
+        self._is_facing_forward: a boolean representing if the player is
+        facing forward
+        self._is_atking: a boolean representing if the player is attacking
+        self._char_name: a string representing the first section of the player
+        image file path
+        self._player_heading: an integer representing the heading of the player
+        """
         super().__init__(image_path, screen)
         self._max_hp = BASE_PLAYER_HEALTH
         self._remaining_hp = self._max_hp
@@ -27,8 +59,6 @@ class Player(BirdCharacter):
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
         self._start_pos = PLAYER_START_POS
         self._rect = self._image.get_rect(center=self._start_pos)
-        self._isdead = False
-        self._screen = screen
         self._is_facing_right = True
         self._is_facing_forward = True
         self._is_atking = False
@@ -63,6 +93,9 @@ class Player(BirdCharacter):
         self._image = pygame.transform.scale(self._image, (self._width, self._height))
 
     def update(self):
+        """
+        Updates current state of player based on keyboard inputs.
+        """
         super().update()
         keys = pygame.key.get_pressed()
 
@@ -85,60 +118,6 @@ class Player(BirdCharacter):
             self._player_heading = 270
 
         self.update_img()
-
-        # # player rotation
-        # if keys[pygame.K_UP]:
-        #     if self._player_heading == 0:
-        #         change = 90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 180:
-        #         change = -90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 270:
-        #         change = -180
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        # if keys[pygame.K_DOWN]:
-        #     if self._player_heading == 0:
-        #         change = 270
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 90:
-        #         change = 180
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 180:
-        #         change = 90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        # if keys[pygame.K_LEFT]:
-        #     if self._player_heading == 0:
-        #         change = 180
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 90:
-        #         change = 90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 270:
-        #         change = -90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        # if keys[pygame.K_RIGHT]:
-        #     if self._player_heading == 90:
-        #         change = -90
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 180:
-        #         change = -180
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
-        #     elif self._player_heading == 270:
-        #         change = -270
-        #         self._image = pygame.transform.rotate(self._image, change)
-        #         self._player_heading += change
 
 
 class Attack(pygame.sprite.Sprite):
