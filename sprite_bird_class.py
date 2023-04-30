@@ -56,6 +56,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._is_facing_forward = True
         self._is_atking = False
         self._char_name = image_path.partition("_")[0]
+        self._heading = 0
 
     @property
     def image(self):
@@ -91,6 +92,13 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         Returns the character's integer width.
         """
         return self._height
+
+    @property
+    def heading(self):
+        """
+        Returns the integer heading.
+        """
+        return self._heading
 
     def take_damage(self, opponent_atk):
         """

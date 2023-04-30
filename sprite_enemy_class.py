@@ -65,18 +65,22 @@ class Enemy(BirdCharacter):
         if player_x > enemy_x + dist_between:
             self._is_facing_right = True
             self._rect.x += self._ms
+            self._heading = 0
         elif player_x < enemy_x - dist_between:
             self._is_facing_right = False
             self._rect.x -= self._ms
+            self._heading = 180
 
         # If enemy is too far above or below player, move enemy
         # up or down depending on which side player is on
         if player_y > enemy_y + dist_between:
             self._is_facing_forward = True
             self._rect.y += self._ms
+            self._heading = 90
         elif player_y < enemy_y - dist_between:
             self._is_facing_forward = False
             self._rect.y -= self._ms
+            self._heading = 270
 
         # update image based on heading
         self.update_img()

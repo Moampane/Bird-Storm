@@ -38,7 +38,7 @@ class Player(BirdCharacter):
         _is_atking: a boolean representing if the player is attacking
         _char_name: a string representing the first section of the player
         image file path
-        _player_heading: an integer representing the heading of the player
+        _heading: an integer representing the heading of the player
     """
 
     def __init__(self, image_path, screen):
@@ -64,7 +64,6 @@ class Player(BirdCharacter):
             screen.get_height() - self._height / 2,
         )
         self._rect = self._image.get_rect(center=self._start_pos)
-        self._player_heading = 0
 
     def update(self):
         """
@@ -77,28 +76,21 @@ class Player(BirdCharacter):
         if keys[pygame.K_a]:
             self._rect.x -= self._ms
             self._is_facing_right = False
-            self._player_heading = 180
+            self._heading = 180
         if keys[pygame.K_d]:
             self._rect.x += self._ms
             self._is_facing_right = True
-            self._player_heading = 0
+            self._heading = 0
         if keys[pygame.K_w]:
             self._rect.y -= self._ms
             self._is_facing_forward = False
-            self._player_heading = 90
+            self._heading = 90
         if keys[pygame.K_s]:
             self._rect.y += self._ms
             self._is_facing_forward = True
-            self._player_heading = 270
+            self._heading = 270
 
         self.update_img()
-
-    @property
-    def player_heading(self):
-        """
-        Returns the player_heading of a Player object.
-        """
-        return self._player_heading
 
 
 pygame.init()
@@ -136,28 +128,28 @@ class Attack(pygame.sprite.Sprite):
     def update(self):
         big_gap = 150
         small_gap = 50
-        if self._player.player_heading == 0:
+        if self._player.heading == 0:
             self._rect = self._image.get_rect(
                 center=(
                     self._player.rect.x + big_gap,
                     self._player.rect.y + small_gap,
                 )
             )
-        if self._player.player_heading == 90:
+        if self._player.heading == 90:
             self._rect = self._image.get_rect(
                 center=(
                     self._player.rect.x + small_gap,
                     self._player.rect.y - small_gap,
                 )
             )
-        if self._player.player_heading == 180:
+        if self._player.heading == 180:
             self._rect = self._image.get_rect(
                 center=(
                     self._player.rect.x - small_gap,
                     self._player.rect.y + small_gap,
                 )
             )
-        if self._player.player_heading == 270:
+        if self._player.heading == 270:
             self._rect = self._image.get_rect(
                 center=(
                     self._player.rect.x + small_gap,
