@@ -10,6 +10,8 @@ VICTORY_FONT = pygame.font.SysFont("arial", 150, True)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
+ronald_enemy_path = "Animations/Ronald/Ronald_front_right_idle.png"
+
 
 class Environment(pygame.sprite.Sprite):
     def __init__(self, bg_path, bg_width, bg_height):
@@ -50,7 +52,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 1:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path="graphics/penguin.png",
+                    image_path=ronald_enemy_path,
                     bg=screen,
                     player=player,
                 )
@@ -62,7 +64,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 2:
             if self.spawn_timer % 200 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path="graphics/penguin.png",
+                    image_path=ronald_enemy_path,
                     bg=screen,
                     player=player,
                 )
@@ -74,7 +76,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 3:
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path="graphics/penguin.png",
+                    image_path=ronald_enemy_path,
                     bg=screen,
                     player=player,
                 )
@@ -86,7 +88,7 @@ class Environment(pygame.sprite.Sprite):
         if self.level == 4:
             if self.spawn_timer % 100 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path="graphics/penguin.png",
+                    image_path=ronald_enemy_path,
                     bg=screen,
                     player=player,
                 )
@@ -133,7 +135,9 @@ class Environment(pygame.sprite.Sprite):
         level_text = FONT.render(f"Level {self.level}", False, RED)
         level_text_size = pygame.font.Font.size(FONT, f"Level {self.level}")
         level_text_width = level_text_size[0]
-        screen.blit(level_text, (self._screen_width / 2 - level_text_width / 2, 0))
+        screen.blit(
+            level_text, (self._screen_width / 2 - level_text_width / 2, 0)
+        )
 
     def display_num_enemies_slain(self, screen):
         # Number of enemies slain text
@@ -144,7 +148,9 @@ class Environment(pygame.sprite.Sprite):
             FONT, f"Enemies Slain: {self.num_enemies_slain}"
         )
         slain_text_width = slain_text_size[0]
-        screen.blit(enemies_slain_counter, (self._screen_width - slain_text_width, 0))
+        screen.blit(
+            enemies_slain_counter, (self._screen_width - slain_text_width, 0)
+        )
 
     def display_win(self, screen):
         # Level text

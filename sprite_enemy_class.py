@@ -32,7 +32,9 @@ class Enemy(BirdCharacter):
         super().__init__(image_path, bg)
         self._width = ENEMY_WIDTH
         self._height = ENEMY_HEIGHT
-        self._image = pygame.transform.scale(self._image, (self._width, self._height))
+        self._image = pygame.transform.scale(
+            self._image, (self._width, self._height)
+        )
         self._max_hp = ENEMY_BASE_MAX_HP
         self._atk = ENEMY_ATK
         self._ms = ENEMY_MOVESPEED
@@ -43,7 +45,7 @@ class Enemy(BirdCharacter):
         )
         self._rect = self._image.get_rect(center=self._start_pos)
         self.player = player
-        self.is_facing_right = True
+        self._is_facing_right = True
 
     def update(self):
         super().update()
@@ -59,22 +61,22 @@ class Enemy(BirdCharacter):
         # left or right depending on which side player is on and flip enemy
         # sprite towards the direction player is in
         if player_x > enemy_x + dist_between:
-            if not self.is_facing_right:
-                self._image = pygame.transform.flip(self._image, True, False)
-                self.is_facing_right = True
+            self._is_facing_right = True
             self._rect.x += self._ms
         elif player_x < enemy_x - dist_between:
-            if self.is_facing_right:
-                self._image = pygame.transform.flip(self._image, True, False)
-                self.is_facing_right = False
+            self._is_facing_right = False
             self._rect.x -= self._ms
 
         # If enemy is too far above or below player, move enemy
         # up or down depending on which side player is on
         if player_y > enemy_y + dist_between:
+            self._is_facing_forward = True
             self._rect.y += self._ms
         elif player_y < enemy_y - dist_between:
+            self._is_facing_forward = False
             self._rect.y -= self._ms
+
+        self.update_img()
 
     def take_damage(self, opponent_atk, environment):
         self._remaining_hp -= opponent_atk
@@ -85,7 +87,15 @@ class Enemy(BirdCharacter):
 
 class Projectile_Boss(BirdCharacter):
     def __init__(
-        self, max_health, attack, movespeed, image_path, start_pos, size, bg, player
+        self,
+        max_health,
+        attack,
+        movespeed,
+        image_path,
+        start_pos,
+        size,
+        bg,
+        player,
     ):
         super().__init__(image_path, bg)
         self._width = size[0]
@@ -98,7 +108,9 @@ class Projectile_Boss(BirdCharacter):
         self.incomplete_intro = True
         self.position = "center"
         self._image = pygame.image.load(image_path).convert_alpha()
-        self._image = pygame.transform.scale(self._image, (self._width, self._height))
+        self._image = pygame.transform.scale(
+            self._image, (self._width, self._height)
+        )
         self._rect = self._image.get_rect(center=start_pos)
         self.complete_move = False
         self.is_facing_right = True
@@ -138,7 +150,13 @@ class Projectile_Boss(BirdCharacter):
         if not self.incomplete_intro:
             if timer % 250 == 0:
                 self._new_pos = random.choice(
-                    ["center", "bottom left", "bottom right", "top left", "top right"]
+                    [
+                        "center",
+                        "bottom left",
+                        "bottom right",
+                        "top left",
+                        "top right",
+                    ]
                 )
                 # self.move = random.choice(
                 #     [

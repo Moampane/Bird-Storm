@@ -56,44 +56,15 @@ class Player(BirdCharacter):
         self._ms = PLAYER_MOVESPEED
         self._width = PLAYER_WIDTH
         self._height = PLAYER_HEIGHT
-        self._image = pygame.transform.scale(self._image, (self._width, self._height))
+        self._image = pygame.transform.scale(
+            self._image, (self._width, self._height)
+        )
         self._start_pos = (
             screen.get_width() / 2,
             screen.get_height() - self._height / 2,
         )
         self._rect = self._image.get_rect(center=self._start_pos)
-        self._is_facing_right = True
-        self._is_facing_forward = True
-        self._is_atking = False
-        self._char_name = image_path.partition("_")[0]
         self._player_heading = 0
-
-    def update_img(self):
-        """
-        Updates the character image to be correct according to the current
-        attack and heading position.
-        """
-        if self._is_facing_forward:
-            front_or_back = "front"
-        else:
-            front_or_back = "back"
-
-        if self._is_facing_right:
-            left_or_right = "right"
-        else:
-            left_or_right = "left"
-
-        if self._is_atking:
-            atk_or_idle = "atk"
-        else:
-            atk_or_idle = "idle"
-
-        updated_img_path = (
-            f"{self._char_name}_{front_or_back}_{left_or_right}_{atk_or_idle}.png"
-        )
-
-        self._image = pygame.image.load(updated_img_path).convert_alpha()
-        self._image = pygame.transform.scale(self._image, (self._width, self._height))
 
     def update(self):
         """
