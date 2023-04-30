@@ -16,29 +16,29 @@ class Player(BirdCharacter):
     A class representing the BirdCharacter Player.
 
     Attributes:
-        self._max_hp: an integer representing the max health of the player
-        self._remaining_hp: an integer representing the remaining health
+        _max_hp: an integer representing the max health of the player
+        _remaining_hp: an integer representing the remaining health
         of the player
-        self._atk: an integer representing the amount of damage the player
+        _atk: an integer representing the amount of damage the player
         does in a single attack
-        self._ms: an integer representing how fast the player moves across
+        _ms: an integer representing how fast the player moves across
         the screen
-        self._width: an integer representing the width of the player image
-        self._height: an integer representing the height of the player
+        _width: an integer representing the width of the player image
+        _height: an integer representing the height of the player
         image
-        self._image: a pygame image representing the image of the player
-        self._start_pos: a tuple containing the (x,y) starting position
+        _image: a pygame image representing the image of the player
+        _start_pos: a tuple containing the (x,y) starting position
         of the player
-        self._rect: a pygame rectangle mapped to the player's image
-        self._screen: the surface that the game is displayed on
-        self._is_facing_right: a boolean representing if the player is facing
+        _rect: a pygame rectangle mapped to the player's image
+        _screen: the surface that the game is displayed on
+        _is_facing_right: a boolean representing if the player is facing
         right
-        self._is_facing_forward: a boolean representing if the player is
+        _is_facing_forward: a boolean representing if the player is
         facing forward
-        self._is_atking: a boolean representing if the player is attacking
-        self._char_name: a string representing the first section of the player
+        _is_atking: a boolean representing if the player is attacking
+        _char_name: a string representing the first section of the player
         image file path
-        self._player_heading: an integer representing the heading of the player
+        _player_heading: an integer representing the heading of the player
     """
 
     def __init__(self, image_path, screen):

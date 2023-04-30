@@ -53,7 +53,7 @@ class Environment(pygame.sprite.Sprite):
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
                     image_path=ronald_enemy_path,
-                    bg=screen,
+                    screen=screen,
                     player=player,
                 )
                 enemy_group.add(tier1_enemy)
@@ -65,7 +65,7 @@ class Environment(pygame.sprite.Sprite):
             if self.spawn_timer % 200 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
                     image_path=ronald_enemy_path,
-                    bg=screen,
+                    screen=screen,
                     player=player,
                 )
                 enemy_group.add(tier1_enemy)
@@ -77,7 +77,7 @@ class Environment(pygame.sprite.Sprite):
             if self.spawn_timer % 300 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
                     image_path=ronald_enemy_path,
-                    bg=screen,
+                    screen=screen,
                     player=player,
                 )
                 enemy_group.add(tier1_enemy)
@@ -89,7 +89,7 @@ class Environment(pygame.sprite.Sprite):
             if self.spawn_timer % 100 == 0:
                 tier1_enemy = sprite_enemy_class.Enemy(
                     image_path=ronald_enemy_path,
-                    bg=screen,
+                    screen=screen,
                     player=player,
                 )
                 enemy_group.add(tier1_enemy)
