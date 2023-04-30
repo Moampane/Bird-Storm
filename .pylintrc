@@ -1,3 +1,10 @@
 [FORMAT]
 
 max-line-length=80
+
+; Disabling pylint error for too many attributes because sprite classes
+; do need all the currently used attributes to function
+disable = too-many-instance-attributes
+
+; Getting rid of false positive pylint errors associated with pygame
+extension-pkg-allow-list = pygame
