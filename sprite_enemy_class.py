@@ -76,11 +76,11 @@ class Enemy(BirdCharacter):
         if player_y > enemy_y + dist_between:
             self._is_facing_forward = True
             self._rect.y += self._ms
-            self._heading = 90
+            self._heading = 270
         elif player_y < enemy_y - dist_between:
             self._is_facing_forward = False
             self._rect.y -= self._ms
-            self._heading = 270
+            self._heading = 90
 
         # update image based on heading
         self.update_img()

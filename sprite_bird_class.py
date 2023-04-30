@@ -1,7 +1,7 @@
 """
 File for overarching bird classes.
 """
-from abc import ABC, abstractmethod
+from abc import ABC
 import pygame
 
 
@@ -32,6 +32,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         _is_atking: a boolean representing if the character is attacking
         _char_name: a string representing the first section of the character
         image file path
+        _heading: the integer heading of the character
     """
 
     def __init__(self, image_path, screen):
