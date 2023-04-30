@@ -101,6 +101,10 @@ class Player(BirdCharacter):
         return self._player_heading
 
 
+pygame.init()
+ATK_FONT = pygame.font.SysFont("arial", 30, bold=True)
+
+
 class Attack(pygame.sprite.Sprite):
     """
     Class representing the player's attack.
@@ -124,27 +128,41 @@ class Attack(pygame.sprite.Sprite):
         super().__init__()
         group.add(self)
         self._player = character
-        self._image = pygame.image.load("graphics/bite.png")
-        self._image = pygame.transform.scale(self._image, (100, 100))
+        self._image = ATK_FONT.render("BONK", False, "Red")
+        # self._image = pygame.transform.scale(self._image, (100, 100))
         self._rect = self._image.get_rect(center=(-1000, -1000))
         self._animation_loop = 0
 
     def update(self):
+        big_gap = 150
+        small_gap = 50
         if self._player.player_heading == 0:
             self._rect = self._image.get_rect(
-                center=(self._player.rect.x + 150, self._player.rect.y + 50)
+                center=(
+                    self._player.rect.x + big_gap,
+                    self._player.rect.y + small_gap,
+                )
             )
         if self._player.player_heading == 90:
             self._rect = self._image.get_rect(
-                center=(self._player.rect.x + 50, self._player.rect.y - 50)
+                center=(
+                    self._player.rect.x + small_gap,
+                    self._player.rect.y - small_gap,
+                )
             )
         if self._player.player_heading == 180:
             self._rect = self._image.get_rect(
-                center=(self._player.rect.x - 50, self._player.rect.y + 50)
+                center=(
+                    self._player.rect.x - small_gap,
+                    self._player.rect.y + small_gap,
+                )
             )
         if self._player.player_heading == 270:
             self._rect = self._image.get_rect(
-                center=(self._player.rect.x + 50, self._player.rect.y + 150)
+                center=(
+                    self._player.rect.x + small_gap,
+                    self._player.rect.y + big_gap,
+                )
             )
         self._animation_loop += 0.5
         if self._animation_loop >= 5:
