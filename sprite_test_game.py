@@ -11,7 +11,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # background = pygame.image.load("graphics/background.jpeg")
 # background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 environment = sprite_environment_class.Environment(
-    bg_path="graphics/background.jpeg", bg_width=SCREEN_WIDTH, bg_height=SCREEN_HEIGHT
+    bg_path="graphics/background.jpeg",
+    bg_width=SCREEN_WIDTH,
+    bg_height=SCREEN_HEIGHT,
 )
 env_group = pygame.sprite.Group()
 env_group.add(environment)
@@ -25,6 +27,11 @@ player_group.add(mc)
 
 # attack placeholder
 attack = pygame.sprite.Sprite()
+enemy_atk = pygame.sprite.Sprite()
+
+# Attack groups
+player_atk_group = pygame.sprite.Group()
+enemy_atk_group = pygame.sprite.Group()
 
 # Enemy Group
 enemy_group = pygame.sprite.Group()
@@ -32,9 +39,11 @@ enemy_group = pygame.sprite.Group()
 # Boss Group
 boss_group = pygame.sprite.Group()
 
+timer = 0
+
 # Game Loop
 while True:
-
+    timer += 1
     # Background
     env_group.draw(screen)
     env_group.update(screen, enemy_group, boss_group, mc)
@@ -53,22 +62,42 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
-                attack = sprite_player_class.Attack(mc, player_group)
+                attack = sprite_player_class.Attack(mc, player_atk_group)
+
+    if timer % 100 == 0:
+        for enemy in enemy_group:
+            enemy_atk = sprite_player_class.Attack(enemy, enemy_atk_group)
 
     # Player
     player_group.draw(screen)
     player_group.update()
 
+    # Attacks
+    player_atk_group.draw(screen)
+    enemy_atk_group.draw(screen)
+    player_atk_group.update()
+    enemy_atk_group.update()
+
     # Attacks hit enemy
     if pygame.sprite.Sprite.alive(attack):
-        attack_hit_enemy = pygame.sprite.spritecollide(attack, enemy_group, False)
+        attack_hit_enemy = pygame.sprite.spritecollide(
+            attack, enemy_group, False
+        )
         for enemy in attack_hit_enemy:
             enemy.take_damage(mc.atk, environment)
 
     # Enemies hit player
-    enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
-    for enemy in enemies_hit_player:
-        mc.take_damage(enemy.atk)
+    for enemy in enemy_group:
+        if pygame.sprite.Sprite.alive(enemy_atk):
+            enemy_atk_hit_player = pygame.sprite.spritecollide(
+                enemy_atk, player_group, False
+            )
+            for mc in enemy_atk_hit_player:
+                mc.take_damage(enemy.atk)
+
+    # enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
+    # for enemy in enemies_hit_player:
+    #     mc.take_damage(enemy.atk)
 
     # Attacks hit boss
     if pygame.sprite.Sprite.alive(attack):
