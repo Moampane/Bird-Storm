@@ -91,3 +91,16 @@ class Player(BirdCharacter):
             self._heading = 270
 
         self.update_img()
+
+    # def attack(self):
+    #     """
+    #   UPDATE LATER IF HAVE TIME LOL
+    #     Creates an instance of the Attack class to make the player attack.
+    #     """
+    #     keys = pygame.key.get_pressed()
+    #     if keys[pygame.K_SPACE]:
+    #         player_attack = Attack(self)
+    #         self._attack_hitbox = player_attack
+
+    #     self._attack_hitbox.update()
+    #     self._attack_hitbox.draw(self._screen)

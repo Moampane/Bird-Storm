@@ -1,7 +1,7 @@
 """
 File for overarching bird classes.
 """
-from abc import ABC
+from abc import ABC, abstractmethod
 import pygame
 
 
@@ -48,6 +48,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._height = None
         self._start_pos = None
         self._rect = None
+        self._attack_hitbox = pygame.sprite.Sprite()
 
         # Set up universal attributes that are same for all subclasses
         self._image = pygame.image.load(image_path).convert_alpha()
@@ -165,3 +166,11 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._image = pygame.transform.scale(
             self._image, (self._width, self._height)
         )
+
+    # @abstractmethod
+    # def attack(self):
+    #     """
+    #     Initializes an Attack instance that is associated with a BirdCharacter.
+    #     Will be implemented in subclasses.
+    #     MAKE LATER IF WE HAVE TIME
+    #     """
