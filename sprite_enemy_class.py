@@ -48,6 +48,9 @@ class Enemy(BirdCharacter):
         self._is_facing_right = True
 
     def update(self):
+        """
+        Updates status of the enemy character.
+        """
         super().update()
 
         # Initialize location data
@@ -58,8 +61,7 @@ class Enemy(BirdCharacter):
         dist_between = 50
 
         # If enemy is too far left or right of player, move enemy towards
-        # left or right depending on which side player is on and flip enemy
-        # sprite towards the direction player is in
+        # left or right depending on which side player is on
         if player_x > enemy_x + dist_between:
             self._is_facing_right = True
             self._rect.x += self._ms
@@ -76,6 +78,7 @@ class Enemy(BirdCharacter):
             self._is_facing_forward = False
             self._rect.y -= self._ms
 
+        # update image based on heading
         self.update_img()
 
     def take_damage(self, opponent_atk, environment):
@@ -158,15 +161,6 @@ class Projectile_Boss(BirdCharacter):
                         "top right",
                     ]
                 )
-                # self.move = random.choice(
-                #     [
-                #         self.go_to_center,
-                #         self.go_to_bottom_left,
-                #         self.go_to_bottom_right,
-                #         self.go_to_top_left,
-                #         self.go_to_top_right,
-                #     ]
-                # )
             self.move_to_pos(self._new_pos)
 
     def move_to_pos(self, new_pos=""):
