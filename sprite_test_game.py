@@ -91,11 +91,12 @@ while True:
     # Enemies hit player
     for enemy in enemy_group:
         if pygame.sprite.Sprite.alive(enemy_atk):
-            enemy_atk_hit_player = pygame.sprite.spritecollide(
-                enemy_atk, player_group, False
-            )
-            for mc in enemy_atk_hit_player:
-                mc.take_damage(enemy.atk)
+            for enemy_atk in enemy_atk_group:
+                enemy_atk_hit_player = pygame.sprite.spritecollide(
+                    enemy_atk, player_group, False
+                )
+                for mc in enemy_atk_hit_player:
+                    mc.take_damage(enemy.atk)
 
     # enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
     # for enemy in enemies_hit_player:
