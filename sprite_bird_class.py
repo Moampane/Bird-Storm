@@ -62,12 +62,28 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         Updates status of characters.
         """
         # Health bar
+        hp_bar_thickness = 7
+        hp_bar_gap = 15
         hp_bar_percent = self._remaining_hp / self._max_hp * self._width
         pygame.draw.rect(
             self._screen,
             "Green",
-            pygame.Rect(self._rect.x, self._rect.y - 10, hp_bar_percent, 7),
+            pygame.Rect(
+                self._rect.x,
+                self._rect.y - hp_bar_gap,
+                hp_bar_percent,
+                hp_bar_thickness,
+            ),
         )
+
+        if self.rect.x < 0:
+            self.rect.x = 0
+        if self.rect.y < hp_bar_gap + hp_bar_thickness:
+            self.rect.y = hp_bar_gap + hp_bar_thickness
+        if self.rect.topright[0] > self._screen.get_width():
+            self.rect.x = self._screen.get_width() - self._width
+        if self.rect.bottomright[1] > self._screen.get_height():
+            self.rect.y = self._screen.get_height() - self._height
 
     def update_img(self):
         """
