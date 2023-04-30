@@ -1,4 +1,8 @@
-import pygame, sys, sprite_player_class, sprite_environment_class
+import pygame
+import sys
+from sprite_player_class import *
+from sprite_environment_class import *
+from sprite_atk_class import *
 
 # Setup
 pygame.init()
@@ -10,7 +14,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # background = pygame.image.load("graphics/background.jpeg")
 # background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-environment = sprite_environment_class.Environment(
+environment = Environment(
     bg_path="graphics/background.jpeg",
     bg_width=SCREEN_WIDTH,
     bg_height=SCREEN_HEIGHT,
@@ -19,9 +23,7 @@ env_group = pygame.sprite.Group()
 env_group.add(environment)
 
 # Player Group
-mc = sprite_player_class.Player(
-    "Animations/Eduardo/Eduardo_front_right_idle.png", screen
-)
+mc = Player("Animations/Eduardo/Eduardo_front_right_idle.png", screen)
 player_group = pygame.sprite.Group()
 player_group.add(mc)
 
@@ -62,11 +64,11 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
-                attack = sprite_player_class.Attack(mc, player_atk_group)
+                attack = Attack(mc, player_atk_group)
 
     if timer % 100 == 0:
         for enemy in enemy_group:
-            enemy_atk = sprite_player_class.Attack(enemy, enemy_atk_group)
+            enemy_atk = Attack(enemy, enemy_atk_group)
 
     # Player
     player_group.draw(screen)
