@@ -110,10 +110,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
             is_atking: boolean reporting whether the character is currently
             attacking or not.
         """
-        if is_atking:
-            self._is_atking = True
-        else:
-            self._is_atking = False
+        self._is_atking = is_atking
 
     def take_damage(self, opponent_atk):
         """
