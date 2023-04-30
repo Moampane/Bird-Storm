@@ -1,11 +1,22 @@
 """
 File for overarching bird classes.
 """
+from abc import ABC
 import pygame
 
 
-class BirdCharacter(pygame.sprite.Sprite):
+class BirdCharacter(pygame.sprite.Sprite, ABC):
+    """
+    Abstract class representing all bird characters (player and enemies).
+
+    Attributes:
+
+    """
+
     def __init__(self, image_path, screen):
+        """
+        Initializes some BirdCharacter attributes for subclasses.
+        """
         pygame.sprite.Sprite.__init__(self)
         self._image = pygame.image.load(image_path).convert_alpha()
         self._screen = screen
@@ -36,11 +47,20 @@ class BirdCharacter(pygame.sprite.Sprite):
         return self._atk
 
     def take_damage(self, opponent_atk):
+        """
+        Lose an amount of HP based on opponent's ATK stat.
+
+        Args:
+            opponent_atk: an integer representing the opponent's atk stat
+        """
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()
 
     def update(self):
+        """
+        Updates status of characters.
+        """
         # Health bar
         hp_bar_percent = self._remaining_hp / self._max_hp * self._width
         pygame.draw.rect(
@@ -69,7 +89,10 @@ class BirdCharacter(pygame.sprite.Sprite):
         else:
             atk_or_idle = "idle"
 
-        updated_img_path = f"{self._char_name}_{front_or_back}_{left_or_right}_{atk_or_idle}.png"
+        updated_img_path = (
+            f"{self._char_name}_{front_or_back}_{left_or_right}_"
+            + f"{atk_or_idle}.png"
+        )
 
         self._image = pygame.image.load(updated_img_path).convert_alpha()
         self._image = pygame.transform.scale(
