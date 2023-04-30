@@ -70,7 +70,9 @@ class Attack(pygame.sprite.Sprite):
                 )
             )
         self._animation_loop += 0.5
+        self._character.set_atk_status(True)
         if self._animation_loop >= 5:
+            self._character.set_atk_status(False)
             self.kill()
 
     @property

@@ -102,6 +102,19 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         """
         return self._heading
 
+    def set_atk_status(self, is_atking):
+        """
+        Sets the status of whether the character is attacking or not.
+
+        Args:
+            is_atking: boolean reporting whether the character is currently
+            attacking or not.
+        """
+        if is_atking:
+            self._is_atking = True
+        else:
+            self._is_atking = False
+
     def take_damage(self, opponent_atk):
         """
         Lose an amount of HP based on opponent's ATK stat.
