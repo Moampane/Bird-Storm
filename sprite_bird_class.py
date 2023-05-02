@@ -182,6 +182,8 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._image = pygame.transform.scale_by(
             self._image, self._img_scale_factor
         )
+        self._width = self._image.get_width()
+        self._height = self._image.get_height()
 
     # @abstractmethod
     # def attack(self):
