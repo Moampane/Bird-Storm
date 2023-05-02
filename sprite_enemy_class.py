@@ -27,6 +27,8 @@ class Enemy(BirdCharacter):
             player
             screen: the surface that the game is displayed on
             player: an instance of the Player character
+            tier: integer representing which tier the enemy is in; will
+            determine stats based off this
         """
         super().__init__(image_path, screen)
         self._img_scale_factor = ENEMY_SCALE_IMG

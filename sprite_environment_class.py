@@ -11,6 +11,8 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
 ronald_enemy_path = "Animations/Ronald/Ronald_front_right_idle.png"
+ed_enemy_path = "Animations/Eduardo/Eduardo_front_right_idle.png"
+emily_enemy_path = "Animations/Emily/Emily_front_right_idle.png"
 
 
 class Environment(pygame.sprite.Sprite):
@@ -62,25 +64,25 @@ class Environment(pygame.sprite.Sprite):
 
         # Level 2
         if self.level == 2:
-            if self.spawn_timer % 200 == 0:
-                tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path=ronald_enemy_path,
+            if self.spawn_timer % 300 == 0:
+                tier2_enemy = sprite_enemy_class.Enemy(
+                    image_path=ed_enemy_path,
                     screen=screen,
                     player=player,
                 )
-                enemy_group.add(tier1_enemy)
+                enemy_group.add(tier2_enemy)
             if self.num_enemies_slain >= 5:
                 self.level = 3
 
         # Level 3
         if self.level == 3:
-            if self.spawn_timer % 300 == 0:
-                tier1_enemy = sprite_enemy_class.Enemy(
-                    image_path=ronald_enemy_path,
+            if self.spawn_timer % 200 == 0:
+                tier3_enemy = sprite_enemy_class.Enemy(
+                    image_path=emily_enemy_path,
                     screen=screen,
                     player=player,
                 )
-                enemy_group.add(tier1_enemy)
+                enemy_group.add(tier3_enemy)
             if self.num_enemies_slain >= 7:
                 self.level = 4
 
@@ -93,6 +95,20 @@ class Environment(pygame.sprite.Sprite):
                     player=player,
                 )
                 enemy_group.add(tier1_enemy)
+            if self.spawn_timer % 200 == 0:
+                tier2_enemy = sprite_enemy_class.Enemy(
+                    image_path=ed_enemy_path,
+                    screen=screen,
+                    player=player,
+                )
+                enemy_group.add(tier2_enemy)
+            if self.spawn_timer % 300 == 0:
+                tier3_enemy = sprite_enemy_class.Enemy(
+                    image_path=emily_enemy_path,
+                    screen=screen,
+                    player=player,
+                )
+                enemy_group.add(tier3_enemy)
             if self.num_enemies_slain >= 15:
                 self.level = 5
 
