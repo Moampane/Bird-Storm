@@ -7,8 +7,8 @@ from sprite_bird_class import BirdCharacter
 
 ENEMY_SCALE_IMG = 0.25
 ENEMY_BASE_MOVESPEED = 2
-ENEMY_BASE_ATK = 10
-ENEMY_BASE_MAX_HP = 50
+ENEMY_BASE_ATK = 5
+ENEMY_BASE_MAX_HP = 20
 
 
 class Enemy(BirdCharacter):
@@ -134,7 +134,7 @@ class Projectile_Boss(BirdCharacter):
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()
-            environment.num_enemies_slain += 100
+            environment.set_boss_slain_true()
 
     def update(self, timer):
         super().update()
@@ -172,7 +172,7 @@ class Projectile_Boss(BirdCharacter):
                 )
             self.move_to_pos(self._new_pos)
 
-    def move_to_pos(self, new_pos=""):
+    def move_to_pos(self, new_pos):
         """
         Moves boss enemy to the new position based on what string position
         is inputted.
@@ -181,9 +181,6 @@ class Projectile_Boss(BirdCharacter):
             new_pos: a string input representing the new location
         """
         EDGE_GAP = 20
-
-        if new_pos == "":
-            return
 
         if "bottom" in new_pos:
             new_y = self._screen.get_height() - self._height - EDGE_GAP

@@ -9,9 +9,10 @@ FONT = pygame.font.SysFont("arial", 30)
 VICTORY_FONT = pygame.font.SysFont("arial", 150, True)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
-LVL_1_INTERVAL = 200
-LVL_2_INTERVAL = 100
-LVL_3_INTERVAL = 50
+LVL_1_INTERVAL = 400
+LVL_2_INTERVAL = 200
+LVL_3_INTERVAL = 100
+MAX_ENEMIES_ON_SCREEN = 8
 
 RONALD_ENEMY_PATH = "Animations/Ronald/Ronald_front_right_idle.png"
 ED_ENEMY_PATH = "Animations/Eduardo/Eduardo_front_right_idle.png"
@@ -32,6 +33,14 @@ class Environment(pygame.sprite.Sprite):
         self.num_enemies_slain = 0
         self.level = 1
         self.spawn_timer = 0
+        self._boss_spawned = False
+        self._boss_slain = False
+
+    def set_boss_slain_true(self):
+        """
+        Sets the _boss_slain attribute to True
+        """
+        self._boss_slain = True
 
     @property
     def image(self):
@@ -96,53 +105,52 @@ class Environment(pygame.sprite.Sprite):
                     self.level = 4
 
         # Level 4
-        if self.level == 4:
-            if self.num_enemies < 8:
-                if self.spawn_timer % LVL_1_INTERVAL == 0:
-                    tier1_enemy = sprite_enemy_class.Enemy(
-                        image_path=RONALD_ENEMY_PATH,
-                        screen=screen,
-                        player=player,
-                        tier=self.level - 2,
-                    )
-                    enemy_group.add(tier1_enemy)
-                if self.spawn_timer % LVL_2_INTERVAL == 0:
-                    tier2_enemy = sprite_enemy_class.Enemy(
-                        image_path=ED_ENEMY_PATH,
-                        screen=screen,
-                        player=player,
-                        tier=self.level - 1,
-                    )
-                    enemy_group.add(tier2_enemy)
-                if self.spawn_timer % LVL_3_INTERVAL == 0:
-                    tier3_enemy = sprite_enemy_class.Enemy(
-                        image_path=EMILY_ENEMY_PATH,
-                        screen=screen,
-                        player=player,
-                        tier=self.level,
-                    )
-                    enemy_group.add(tier3_enemy)
-                if self.num_enemies_slain >= 15:
-                    self.level = 5
+        if self.level == 4 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+            if self.spawn_timer % LVL_3_INTERVAL == 0:
+                tier1_enemy = sprite_enemy_class.Enemy(
+                    image_path=ronald_enemy_path,
+                    screen=screen,
+                    player=player,
+                    tier=self.level - 2,
+                )
+                enemy_group.add(tier1_enemy)
+            if self.spawn_timer % LVL_2_INTERVAL == 0:
+                tier2_enemy = sprite_enemy_class.Enemy(
+                    image_path=ed_enemy_path,
+                    screen=screen,
+                    player=player,
+                    tier=self.level - 1,
+                )
+                enemy_group.add(tier2_enemy)
+            if self.spawn_timer % LVL_1_INTERVAL == 0:
+                tier3_enemy = sprite_enemy_class.Enemy(
+                    image_path=emily_enemy_path,
+                    screen=screen,
+                    player=player,
+                    tier=self.level,
+                )
+                enemy_group.add(tier3_enemy)
+            if self.num_enemies_slain >= 15:
+                self.level = 5
 
         # Boss
-        if self.num_enemies_slain >= 100:
+        # initalize boss
+        if self.level == 5 and not self._boss_spawned:
+            boss = sprite_enemy_class.Projectile_Boss(
+                max_health=200,
+                attack=2,
+                movespeed=4,
+                image_path="graphics/kakapo.png",
+                start_pos=(screen.get_width() / 2, -200),
+                size=(200, 200),
+                bg=screen,
+                player=player,
+            )
+            boss_group.add(boss)
+            self._boss_spawned = True
+
+        if self._boss_slain:
             self.level = 6
-        if self.level == 5:
-            # if self.spawn_timer % 1000000 == 0:
-            if self.num_enemies_slain >= 15:
-                self.num_enemies_slain -= 15
-                boss = sprite_enemy_class.Projectile_Boss(
-                    max_health=200,
-                    attack=2,
-                    movespeed=4,
-                    image_path="graphics/kakapo.png",
-                    start_pos=(screen.get_width() / 2, -200),
-                    size=(200, 200),
-                    bg=screen,
-                    player=player,
-                )
-                boss_group.add(boss)
 
         # Display win
         if self.level == 6:
