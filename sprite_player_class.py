@@ -40,6 +40,7 @@ class Player(BirdCharacter):
         _heading: an integer representing the heading of the player
         _img_scale_factor: float factor by which to scale the player's image
         on the screen.
+        _hp_bar_width: integer width of the HP bar
     """
 
     def __init__(self, image_path, screen):
@@ -64,6 +65,7 @@ class Player(BirdCharacter):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
+        self._hp_bar_width = self._width
         self._start_pos = (
             screen.get_width() / 2,
             screen.get_height() - self._height / 2,

@@ -49,6 +49,7 @@ class Enemy(BirdCharacter):
         self._rect = self._image.get_rect(center=self._start_pos)
         self.player = player
         self._is_facing_right = True
+        self._hp_bar_width = self._width
 
     def update(self):
         """
@@ -127,6 +128,7 @@ class Projectile_Boss(BirdCharacter):
         self._new_pos = random.choice(
             ["center", "bottom left", "bottom right", "top left", "top right"]
         )
+        self._hp_bar_width = self._width
 
     def take_damage(self, opponent_atk, environment):
         self._remaining_hp -= opponent_atk
