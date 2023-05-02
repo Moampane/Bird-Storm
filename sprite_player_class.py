@@ -5,7 +5,7 @@ import pygame
 from sprite_bird_class import BirdCharacter
 
 BASE_PLAYER_HEALTH = 1000
-PLAYER_ATK = 5
+PLAYER_ATK = 10
 PLAYER_MOVESPEED = 5
 PLAYER_SCALE_IMG = 0.25
 

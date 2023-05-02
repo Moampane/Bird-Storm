@@ -100,7 +100,6 @@ while True:
                 if enemy_atk.first_hit:
                     for mc in enemy_atk_hit_player:
                         mc.take_damage(enemy.atk)
-                        print(mc._remaining_hp)
                     enemy_atk.set_first_hit_false()
 
     # enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
