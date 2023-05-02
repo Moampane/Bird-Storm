@@ -1,7 +1,8 @@
 """
 File for environment class.
 """
-import pygame, sprite_enemy_class
+import pygame
+import sprite_enemy_class
 
 pygame.init()
 
@@ -20,7 +21,33 @@ EMILY_ENEMY_PATH = "Animations/Emily/Emily_front_right_idle.png"
 
 
 class Environment(pygame.sprite.Sprite):
+    """
+    A class representing the game environment. Also, controls
+    level progression and enemy spawns.
+    Attributes:
+        _screen_width: an integer representing the width of the screen.
+        _screen_height: an integer representing the height of the screen.
+        _image: a pygame image representing the game background.
+        _rect: a pygame rect representing the bounding box of the background.
+        num_enemies: an integer representing the number of enemies currently on
+        screen.
+        num_enemies_slain: an integer representing the number of enemies slain.
+        level: an integer representing the current level.
+        spawn_timer: an integer representing the timer used for setting spawn
+        rates.
+        _boss_spawned: a boolean representing if the boss has spawned.
+        _boss_slain: a boolean representing if the boss has been slain.
+    """
+
     def __init__(self, bg_path, bg_width, bg_height):
+        """
+        Initializes an instance of the Environment.
+        Args:
+            bg_path: a string representing the path to a file containing the
+            background image.
+            bg_width: an integer representing the width of the screen.
+            bg_height: an integer representing the height of the screen.
+        """
         pygame.sprite.Sprite.__init__(self)
         self._screen_width = bg_width
         self._screen_height = bg_height
@@ -57,6 +84,10 @@ class Environment(pygame.sprite.Sprite):
         return self._rect
 
     def update(self, screen, enemy_group, boss_group, player):
+        """
+        Updates current state of the environment. Controls enemy spawns
+        and displays enemies on screen, slain, and level.
+        """
         self.display_num_enemies(screen, enemy_group)
         self.display_level(screen)
         self.display_num_enemies_slain(screen)
@@ -131,7 +162,7 @@ class Environment(pygame.sprite.Sprite):
                 self.level = 5
 
         # Boss
-        # initalize boss
+        # initialize boss
         if self.level == 5 and not self._boss_spawned:
             boss = sprite_enemy_class.Projectile_Boss(
                 max_health=200,
@@ -146,17 +177,18 @@ class Environment(pygame.sprite.Sprite):
             boss_group.add(boss)
             self._boss_spawned = True
 
+        # Display win
         if self._boss_slain:
             self.level = 6
-
-        # Display win
-        if self.level == 6:
             self.display_win(screen)
 
         # Increment spawn timer
         self.spawn_timer += 1
 
     def display_num_enemies(self, screen, enemy_group):
+        """
+        Displays the number of enemies on screen.
+        """
         # Number of remaining enemies text
         self.num_enemies = len(pygame.sprite.Group.sprites(enemy_group))
         enemies_counter = FONT.render(
@@ -165,6 +197,9 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(enemies_counter, (0, 0))
 
     def display_level(self, screen):
+        """
+        Displays the current level.
+        """
         # Level text
         level_text = FONT.render(f"Level {self.level}", False, RED)
         level_text_size = pygame.font.Font.size(FONT, f"Level {self.level}")
@@ -174,6 +209,9 @@ class Environment(pygame.sprite.Sprite):
         )
 
     def display_num_enemies_slain(self, screen):
+        """
+        Displays the number of enemies slain.
+        """
         # Number of enemies slain text
         enemies_slain_counter = FONT.render(
             f"Enemies Slain: {self.num_enemies_slain}", False, RED
@@ -187,6 +225,9 @@ class Environment(pygame.sprite.Sprite):
         )
 
     def display_win(self, screen):
+        """
+        Displays victory screen.
+        """
         # Level text
         victory_text = VICTORY_FONT.render("YOU WIN", False, YELLOW)
         victory_text_size = pygame.font.Font.size(VICTORY_FONT, "YOU WIN")
