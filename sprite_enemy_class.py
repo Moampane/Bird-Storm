@@ -7,8 +7,8 @@ from sprite_bird_class import BirdCharacter
 
 ENEMY_SCALE_IMG = 0.25
 ENEMY_BASE_MOVESPEED = 2
-ENEMY_BASE_ATK = 5
-ENEMY_BASE_MAX_HP = 20
+ENEMY_BASE_ATK = 10
+ENEMY_BASE_MAX_HP = 50
 
 
 class Enemy(BirdCharacter):
@@ -37,9 +37,10 @@ class Enemy(BirdCharacter):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
-        self._max_hp = tier * ENEMY_BASE_MAX_HP
-        self._atk = tier * ENEMY_BASE_ATK
-        self._ms = tier * ENEMY_BASE_MOVESPEED
+        tier_multiplier = tier / 2
+        self._max_hp = tier_multiplier * ENEMY_BASE_MAX_HP
+        self._atk = tier_multiplier * ENEMY_BASE_ATK
+        self._ms = tier_multiplier * ENEMY_BASE_MOVESPEED
         self._remaining_hp = self._max_hp
         self._start_pos = (
             random.choice([0 - self._width, screen.get_width() + self._width]),

@@ -34,6 +34,7 @@ class Attack(pygame.sprite.Sprite):
         self._image = ATK_FONT.render("BONK", False, "Red")
         self._rect = self._image.get_rect(center=(-1000, -1000))
         self._animation_loop = 0
+        self._first_hit = True
 
     def update(self):
         """
@@ -88,3 +89,17 @@ class Attack(pygame.sprite.Sprite):
         Returns the pygame rectangle of the attack.
         """
         return self._rect
+
+    @property
+    def first_hit(self):
+        """
+        Returns bool saying whether it's the first hit of the attack or not.
+        """
+        return self._first_hit
+
+    def set_first_hit_false(self):
+        """
+        Sets status of _first_hit to false after the attack has hit the target
+        once.
+        """
+        self._first_hit = False

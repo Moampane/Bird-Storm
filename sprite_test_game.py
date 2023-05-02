@@ -28,7 +28,7 @@ player_group = pygame.sprite.Group()
 player_group.add(mc)
 
 # attack placeholder
-attack = pygame.sprite.Sprite()
+player_atk = pygame.sprite.Sprite()
 enemy_atk = pygame.sprite.Sprite()
 
 # Attack groups
@@ -64,7 +64,7 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
-                attack = Attack(mc, player_atk_group)
+                player_atk = Attack(mc, player_atk_group)
 
     if timer % 100 == 0:
         for enemy in enemy_group:
@@ -81,12 +81,14 @@ while True:
     enemy_atk_group.update()
 
     # Attacks hit enemy
-    if pygame.sprite.Sprite.alive(attack):
+    if pygame.sprite.Sprite.alive(player_atk):
         attack_hit_enemy = pygame.sprite.spritecollide(
-            attack, enemy_group, False
+            player_atk, enemy_group, False
         )
         for enemy in attack_hit_enemy:
-            enemy.take_damage(mc.atk, environment)
+            if player_atk.first_hit:
+                enemy.take_damage(mc.atk, environment)
+                player_atk.set_first_hit_false()
 
     # Enemies hit player
     for enemy in enemy_group:
@@ -95,18 +97,25 @@ while True:
                 enemy_atk_hit_player = pygame.sprite.spritecollide(
                     enemy_atk, player_group, False
                 )
-                for mc in enemy_atk_hit_player:
-                    mc.take_damage(enemy.atk)
+                if enemy_atk.first_hit:
+                    for mc in enemy_atk_hit_player:
+                        mc.take_damage(enemy.atk)
+                        print(mc._remaining_hp)
+                    enemy_atk.set_first_hit_false()
 
     # enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
     # for enemy in enemies_hit_player:
     #     mc.take_damage(enemy.atk)
 
     # Attacks hit boss
-    if pygame.sprite.Sprite.alive(attack):
-        attack_hit_boss = pygame.sprite.spritecollide(attack, boss_group, False)
+    if pygame.sprite.Sprite.alive(player_atk):
+        attack_hit_boss = pygame.sprite.spritecollide(
+            player_atk, boss_group, False
+        )
         for boss in attack_hit_boss:
-            boss.take_damage(mc.atk, environment)
+            if player_atk.first_hit:
+                boss.take_damage(mc.atk, environment)
+                player_atk.set_first_hit_false()
 
     # Boss hits player
     boss_hits_player = pygame.sprite.spritecollide(mc, boss_group, False)
