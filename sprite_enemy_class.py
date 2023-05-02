@@ -5,8 +5,7 @@ import pygame
 import random
 from sprite_bird_class import BirdCharacter
 
-ENEMY_WIDTH = 100
-ENEMY_HEIGHT = 100
+ENEMY_SCALE_IMG = 0.25
 ENEMY_MOVESPEED = 2
 ENEMY_ATK = 10
 ENEMY_BASE_MAX_HP = 20
@@ -30,11 +29,12 @@ class Enemy(BirdCharacter):
             player: an instance of the Player character
         """
         super().__init__(image_path, screen)
-        self._width = ENEMY_WIDTH
-        self._height = ENEMY_HEIGHT
-        self._image = pygame.transform.scale(
-            self._image, (self._width, self._height)
+        self._img_scale_factor = ENEMY_SCALE_IMG
+        self._image = pygame.transform.scale_by(
+            self._image, self._img_scale_factor
         )
+        self._width = self._image.get_width()
+        self._height = self._image.get_height()
         self._max_hp = ENEMY_BASE_MAX_HP
         self._atk = ENEMY_ATK
         self._ms = ENEMY_MOVESPEED

@@ -33,6 +33,10 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         _char_name: a string representing the first section of the character
         image file path
         _heading: the integer heading of the character
+        _img_scale_factor: float factor by which to scale the character's image
+        on the screen.
+        _attack_hitbox: Attack instance that represents the area in which this
+        character deals damage.
     """
 
     def __init__(self, image_path, screen):
@@ -50,6 +54,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._start_pos = None
         self._rect = None
         self._attack_hitbox = pygame.sprite.Sprite()
+        self._img_scale_factor = None
 
         # Set up universal attributes that are same for all subclasses
         self._image = pygame.image.load(image_path).convert_alpha()
@@ -174,8 +179,8 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         )
 
         self._image = pygame.image.load(updated_img_path).convert_alpha()
-        self._image = pygame.transform.scale(
-            self._image, (self._width, self._height)
+        self._image = pygame.transform.scale_by(
+            self._image, self._img_scale_factor
         )
 
     # @abstractmethod

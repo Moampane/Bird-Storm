@@ -7,8 +7,7 @@ from sprite_bird_class import BirdCharacter
 BASE_PLAYER_HEALTH = 1000
 PLAYER_ATK = 5
 PLAYER_MOVESPEED = 5
-PLAYER_WIDTH = 100
-PLAYER_HEIGHT = 100
+PLAYER_SCALE_IMG = 0.25
 
 
 class Player(BirdCharacter):
@@ -39,6 +38,8 @@ class Player(BirdCharacter):
         _char_name: a string representing the first section of the player
         image file path
         _heading: an integer representing the heading of the player
+        _img_scale_factor: float factor by which to scale the player's image
+        on the screen.
     """
 
     def __init__(self, image_path, screen):
@@ -54,11 +55,15 @@ class Player(BirdCharacter):
         self._remaining_hp = self._max_hp
         self._atk = PLAYER_ATK
         self._ms = PLAYER_MOVESPEED
-        self._width = PLAYER_WIDTH
-        self._height = PLAYER_HEIGHT
-        self._image = pygame.transform.scale(
-            self._image, (self._width, self._height)
+        # self._image = pygame.transform.scale(
+        #     self._image, (self._width, self._height)
+        # )
+        self._img_scale_factor = PLAYER_SCALE_IMG
+        self._image = pygame.transform.scale_by(
+            self._image, self._img_scale_factor
         )
+        self._width = self._image.get_width()
+        self._height = self._image.get_height()
         self._start_pos = (
             screen.get_width() / 2,
             screen.get_height() - self._height / 2,

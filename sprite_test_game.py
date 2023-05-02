@@ -23,7 +23,7 @@ env_group = pygame.sprite.Group()
 env_group.add(environment)
 
 # Player Group
-mc = Player("Animations/Eduardo/Eduardo_front_right_idle.png", screen)
+mc = Player("Animations/Steve/Steve_front_right_idle.png", screen)
 player_group = pygame.sprite.Group()
 player_group.add(mc)
 
