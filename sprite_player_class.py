@@ -65,7 +65,6 @@ class Player(BirdCharacter):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
-        self._hp_bar_width = self._width
         self._start_pos = (
             screen.get_width() / 2,
             screen.get_height() - self._height / 2,

@@ -47,9 +47,8 @@ class Enemy(BirdCharacter):
             random.randint(0, screen.get_height() - self._height),
         )
         self._rect = self._image.get_rect(center=self._start_pos)
-        self.player = player
+        self._player = player
         self._is_facing_right = True
-        self._hp_bar_width = self._width
         self.atk_timer = 0
 
     def update(self):
@@ -60,8 +59,8 @@ class Enemy(BirdCharacter):
         self.atk_timer += 1
 
         # Initialize location data
-        player_x = self.player.rect.x
-        player_y = self.player.rect.y
+        player_x = self._player.rect.x
+        player_y = self._player.rect.y
         enemy_x = self._rect.x
         enemy_y = self._rect.y
         dist_between = 50

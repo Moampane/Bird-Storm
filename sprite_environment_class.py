@@ -177,13 +177,10 @@ class Environment(pygame.sprite.Sprite):
 
         # Boss
         # initialize boss
+        # change back to level 5 when done testing
         if self.level == 1 and not self._boss_spawned:
             boss = ProjectileBoss(
-                max_health=200,
-                attack=2,
-                movespeed=8,
                 image_path=BOSS_ENEMY_PATH,
-                start_pos=(screen.get_width() / 2, -200),
                 bg=screen,
                 player=player,
             )
