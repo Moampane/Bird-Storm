@@ -40,6 +40,7 @@ class ProjectileBoss(BirdCharacter):
             ["center", "bottom left", "bottom right", "top left", "top right"]
         )
         self._hp_bar_width = self._width
+        self.timer = 0
 
     def take_damage(self, opponent_atk, environment):
         """
@@ -55,13 +56,16 @@ class ProjectileBoss(BirdCharacter):
             self.kill()
             environment.set_boss_slain_true()
 
-    def update(self, timer):
+    def update(self):
+        """
+        Updates status of Boss.
+        """
         super().update()
 
         if (
             self._rect.y < self._screen.get_height() / 2 - 100
             and self.incomplete_intro
-            and timer % 10 == 0
+            and self.timer % 10 == 0
         ):
             # change back to 1 later
             # Moves boss
@@ -74,7 +78,7 @@ class ProjectileBoss(BirdCharacter):
                 self.incomplete_intro = False
 
         if not self.incomplete_intro:
-            if timer % 100 == 0:
+            if self.timer % 100 == 0:
                 self._new_pos = random.choice(
                     [
                         "center",
@@ -86,6 +90,9 @@ class ProjectileBoss(BirdCharacter):
                 )
             self.move_to_pos(self._new_pos)
         self.update_img()
+
+        # increment timer
+        self.timer += 1
 
     def move_to_pos(self, new_pos):
         """
