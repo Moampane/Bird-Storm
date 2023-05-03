@@ -4,6 +4,7 @@ File for enemy classes.
 import pygame
 import random
 from sprite_bird_class import BirdCharacter
+from sprite_atk_class import Attack
 
 ENEMY_SCALE_IMG = 0.25
 ENEMY_BASE_MOVESPEED = 2
@@ -50,12 +51,14 @@ class Enemy(BirdCharacter):
         self.player = player
         self._is_facing_right = True
         self._hp_bar_width = self._width
+        self.atk_timer = 0
 
     def update(self):
         """
         Updates status of the enemy character.
         """
         super().update()
+        self.atk_timer += 1
 
         # Initialize location data
         player_x = self.player.rect.x

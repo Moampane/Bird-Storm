@@ -66,8 +66,8 @@ while True:
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
                 player_atk = Attack(mc, player_atk_group)
 
-    if timer % 100 == 0:
-        for enemy in enemy_group:
+    for enemy in enemy_group:
+        if enemy.atk_timer % 69 == 0:
             enemy_atk = Attack(enemy, enemy_atk_group)
 
     # Player
