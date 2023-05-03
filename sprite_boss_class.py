@@ -1,11 +1,14 @@
-import pygame
+"""
+File for ProjectileBoss class.
+"""
 import random
+import pygame
 from sprite_bird_class import BirdCharacter
 
 BOSS_IMG_SCALE = 0.5
 
 
-class Projectile_Boss(BirdCharacter):
+class ProjectileBoss(BirdCharacter):
     def __init__(
         self,
         max_health,
@@ -92,17 +95,17 @@ class Projectile_Boss(BirdCharacter):
         Args:
             new_pos: a string input representing the new location
         """
-        EDGE_GAP = 0
+        edge_gap = 0
 
         if "bottom" in new_pos:
-            new_y = self._screen.get_height() - self._height - EDGE_GAP
+            new_y = self._screen.get_height() - self._height - edge_gap
         else:
-            new_y = EDGE_GAP
+            new_y = edge_gap
 
         if "left" in new_pos:
-            new_x = EDGE_GAP
+            new_x = edge_gap
         else:
-            new_x = self._screen.get_width() - self._width - EDGE_GAP
+            new_x = self._screen.get_width() - self._width - edge_gap
 
         if new_pos == "center":
             new_x = self._screen.get_width() / 2 - self._width / 2

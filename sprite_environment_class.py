@@ -3,7 +3,7 @@ File for environment class.
 """
 import pygame
 from sprite_enemy_class import Enemy
-from sprite_boss_class import Projectile_Boss
+from sprite_boss_class import ProjectileBoss
 
 pygame.init()
 
@@ -178,7 +178,7 @@ class Environment(pygame.sprite.Sprite):
         # Boss
         # initialize boss
         if self.level == 5 and not self._boss_spawned:
-            boss = Projectile_Boss(
+            boss = ProjectileBoss(
                 max_health=200,
                 attack=2,
                 movespeed=8,

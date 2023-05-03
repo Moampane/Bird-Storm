@@ -1,5 +1,5 @@
 """
-File for player classes.
+File for player class.
 """
 import pygame
 from sprite_bird_class import BirdCharacter
