@@ -57,9 +57,9 @@ class Environment(pygame.sprite.Sprite):
         self._screen_height = bg_height
         self._image = pygame.image.load(bg_path)
         self._image = pygame.transform.scale(
-            self._image, (self._screen_width, self._screen_height)
+            self._image, (self._screen_width + 30, self._screen_height)
         )
-        self._rect = self._image.get_rect(topleft=(0, 0))
+        self._rect = self._image.get_rect(topleft=(-20, 0))
         self.num_enemies = 0
         self.num_enemies_slain = 0
         self.level = 1
@@ -91,6 +91,11 @@ class Environment(pygame.sprite.Sprite):
         """
         Updates current state of the environment. Controls enemy spawns
         and displays enemies on screen, slain, and level.
+        Args:
+            screen: a pygame display that the game is being played on.
+            enemy_group: a pygame sprite group containing all the enemy sprites.
+            boss_group: a pygame sprite group containing the boss sprite.
+            player: a player object representing the controllable player.
         """
         self.display_num_enemies(screen, enemy_group)
         self.display_level(screen)
@@ -196,6 +201,9 @@ class Environment(pygame.sprite.Sprite):
     def display_num_enemies(self, screen, enemy_group):
         """
         Displays the number of enemies on screen.
+        Args:
+            screen: a pygame display that the game is being played on.
+            enemy_group: a pygame sprite group containing all the enemy sprites.
         """
         # Number of remaining enemies text
         self.num_enemies = len(pygame.sprite.Group.sprites(enemy_group))
@@ -207,6 +215,8 @@ class Environment(pygame.sprite.Sprite):
     def display_level(self, screen):
         """
         Displays the current level.
+        Args:
+            screen: a pygame display that the game is being played on.
         """
         # Level text
         level_text = FONT.render(f"Level {self.level}", False, RED)
@@ -220,6 +230,8 @@ class Environment(pygame.sprite.Sprite):
     def display_num_enemies_slain(self, screen):
         """
         Displays the number of enemies slain.
+        Args:
+            screen: a pygame display that the game is being played on.
         """
         # Number of enemies slain text
         enemies_slain_counter = FONT.render(
@@ -240,6 +252,8 @@ class Environment(pygame.sprite.Sprite):
     def display_win(self, screen):
         """
         Displays victory screen.
+        Args:
+            screen: a pygame display that the game is being played on.
         """
         # Level text
         victory_text = VICTORY_FONT.render("YOU WIN", False, YELLOW)
@@ -255,6 +269,9 @@ class Environment(pygame.sprite.Sprite):
     def display_loss(self, screen, player):
         """
         Displays death screen, offers replay button.
+        Args:
+            screen: a pygame display that the game is being played on.
+            player: a player object representing the controllable player.
         """
         death_text = VICTORY_FONT.render("YOU LOSE", False, RED)
         death_text_size = pygame.font.Font.size(VICTORY_FONT, "YOU LOSE")
