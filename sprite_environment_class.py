@@ -167,7 +167,7 @@ class Environment(pygame.sprite.Sprite):
             boss = sprite_enemy_class.Projectile_Boss(
                 max_health=200,
                 attack=2,
-                movespeed=4,
+                movespeed=8,
                 image_path="graphics/kakapo.png",
                 start_pos=(screen.get_width() / 2, -200),
                 size=(200, 200),
