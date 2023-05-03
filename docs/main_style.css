@@ -3,22 +3,35 @@
     src: url('pixel.ttf');
 }
 
-h1 {
+body {
     font-family: Pixel;
+}
+
+h1 {
     font-size: 50px;
 }
 
 h2 {
-    font-family: Pixel;
     font-size: 40px;
 }
 
 h3 {
-    font-family: Pixel;
     font-size: 30px;
 }
 
 p {
-    font-family: Pixel;
     font-size: 25px
+}
+
+.button {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
