@@ -2,7 +2,8 @@
 File for environment class.
 """
 import pygame
-import sprite_enemy_class
+from sprite_enemy_class import Enemy
+from sprite_boss_class import Projectile_Boss
 
 pygame.init()
 
@@ -91,12 +92,17 @@ class Environment(pygame.sprite.Sprite):
         self.display_num_enemies(screen, enemy_group)
         self.display_level(screen)
         self.display_num_enemies_slain(screen)
+        if not player.alive():
+            self.display_loss(screen, player)
+            for enemy in enemy_group:
+                enemy.kill()
+            return
 
         # Level 1
         # put this back to level 1 when done testing
         if self.level == 1 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
             if self.spawn_timer % LVL_1_INTERVAL == 0:
-                tier1_enemy = sprite_enemy_class.Enemy(
+                tier1_enemy = Enemy(
                     image_path=RONALD_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -109,7 +115,7 @@ class Environment(pygame.sprite.Sprite):
         # Level 2
         if self.level == 2 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
             if self.spawn_timer % LVL_2_INTERVAL == 0:
-                tier2_enemy = sprite_enemy_class.Enemy(
+                tier2_enemy = Enemy(
                     image_path=ED_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -122,7 +128,7 @@ class Environment(pygame.sprite.Sprite):
         # Level 3
         if self.level == 3 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
             if self.spawn_timer % LVL_3_INTERVAL == 0:
-                tier3_enemy = sprite_enemy_class.Enemy(
+                tier3_enemy = Enemy(
                     image_path=EMILY_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -135,7 +141,7 @@ class Environment(pygame.sprite.Sprite):
         # Level 4
         if self.level == 4 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
             if self.spawn_timer % LVL_3_INTERVAL == 0:
-                tier1_enemy = sprite_enemy_class.Enemy(
+                tier1_enemy = Enemy(
                     image_path=RONALD_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -143,7 +149,7 @@ class Environment(pygame.sprite.Sprite):
                 )
                 enemy_group.add(tier1_enemy)
             if self.spawn_timer % LVL_2_INTERVAL == 0:
-                tier2_enemy = sprite_enemy_class.Enemy(
+                tier2_enemy = Enemy(
                     image_path=ED_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -151,7 +157,7 @@ class Environment(pygame.sprite.Sprite):
                 )
                 enemy_group.add(tier2_enemy)
             if self.spawn_timer % LVL_1_INTERVAL == 0:
-                tier3_enemy = sprite_enemy_class.Enemy(
+                tier3_enemy = Enemy(
                     image_path=EMILY_ENEMY_PATH,
                     screen=screen,
                     player=player,
@@ -164,7 +170,7 @@ class Environment(pygame.sprite.Sprite):
         # Boss
         # initialize boss
         if self.level == 5 and not self._boss_spawned:
-            boss = sprite_enemy_class.Projectile_Boss(
+            boss = Projectile_Boss(
                 max_health=200,
                 attack=2,
                 movespeed=8,
@@ -236,5 +242,30 @@ class Environment(pygame.sprite.Sprite):
             (
                 self._screen_width / 2 - victory_text_size[0] / 2,
                 self._screen_height / 2 - victory_text_size[1] / 2,
+            ),
+        )
+
+    def display_loss(self, screen, player):
+        """
+        Displays death screen, offers replay button.
+        """
+        death_text = VICTORY_FONT.render("YOU LOSE", False, RED)
+        death_text_size = pygame.font.Font.size(VICTORY_FONT, "YOU LOSE")
+        screen.blit(
+            death_text,
+            (
+                self._screen_width / 2 - death_text_size[0] / 2,
+                self._screen_height / 2 - death_text_size[1] / 2,
+            ),
+        )
+        restart_text = FONT.render("lol fucking loser", False, RED)
+        restart_text_size = pygame.font.Font.size(
+            VICTORY_FONT, "lol fucking loser"
+        )
+        screen.blit(
+            restart_text,
+            (
+                self._screen_width / 2 - restart_text_size[0] / 2,
+                self._screen_height / 2 + death_text_size[1] / 2,
             ),
         )
