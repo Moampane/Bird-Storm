@@ -1,15 +1,24 @@
+@font-face {
+    font-family: Pixel;
+    src: url('pixel.ttf');
+}
+
 h1 {
+    font-family: Pixel;
     font-size: 50px;
 }
 
 h2 {
+    font-family: Pixel;
     font-size: 40px;
 }
 
 h3 {
+    font-family: Pixel;
     font-size: 30px;
 }
 
 p {
+    font-family: Pixel;
     font-size: 20px
 }
