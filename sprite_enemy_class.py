@@ -14,7 +14,31 @@ ENEMY_BASE_MAX_HP = 20
 class Enemy(BirdCharacter):
     """
     A BirdCharacter class representing the enemies.
+
     Attributes:
+        _img_scale_factor: a float representing the factor by
+        which the image of the Enemy is scaled by
+        _image: a pygame image representing the Enemy
+        _width: an integer representing the width of the Enemy
+        _height: an integer representing the height of the Enemy
+        _max_hp: an integer representing the max health of the Enemy
+        _atk: an integer representing the amount of damage the Enemy
+        does in a single attack
+        _ms: an integer representing how fast the Enemy moves across
+        the screen
+        _remaining_hp: an integer representing the remaining health
+        of the Enemy
+        _start_pos: a tuple of two integers, the first being either
+        the left or right side of the screen and the second being a
+        randomly chosen position between the top and bottom of the
+        screen. Represents the starting position or spawn point of
+        the Enemy.
+        _rect: a pygame rect representing the hitbox of the Enemy
+        _player: an instance of the Player character
+        _is_facing_right: a boolean representing whether the Enemy
+        is facing right or not
+        _atk_timer: an integer representing the Enemy's internal timer
+        used to determine when to attack
 
     """
 
@@ -49,14 +73,14 @@ class Enemy(BirdCharacter):
         self._rect = self._image.get_rect(center=self._start_pos)
         self._player = player
         self._is_facing_right = True
-        self.atk_timer = 0
+        self._atk_timer = 0
 
     def update(self):
         """
         Updates status of the enemy character.
         """
         super().update()
-        self.atk_timer += 1
+        self._atk_timer += 1
 
         # Initialize location data
         player_x = self._player.rect.x
