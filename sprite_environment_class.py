@@ -7,7 +7,7 @@ from sprite_boss_class import Projectile_Boss
 
 pygame.init()
 
-FONT = pygame.font.Font("fonts/pixel.ttf", 25)
+FONT = pygame.font.Font("fonts/pixel.ttf", 35)
 VICTORY_FONT = pygame.font.Font("fonts/pixel.ttf", 150)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
@@ -20,6 +20,8 @@ RONALD_ENEMY_PATH = "Animations/Ronald/Ronald_front_right_idle.png"
 ED_ENEMY_PATH = "Animations/Eduardo/Eduardo_front_right_idle.png"
 EMILY_ENEMY_PATH = "Animations/Emily/Emily_front_right_idle.png"
 BOSS_ENEMY_PATH = "Animations/Philipe/Philipe_front_right_idle.png"
+
+SCREEN_TEXT_GAP = 10
 
 
 class Environment(pygame.sprite.Sprite):
@@ -200,7 +202,7 @@ class Environment(pygame.sprite.Sprite):
         enemies_counter = FONT.render(
             f"Enemies Remaining: {self.num_enemies}", False, RED
         )
-        screen.blit(enemies_counter, (0, 0))
+        screen.blit(enemies_counter, (SCREEN_TEXT_GAP, SCREEN_TEXT_GAP))
 
     def display_level(self, screen):
         """
@@ -211,7 +213,8 @@ class Environment(pygame.sprite.Sprite):
         level_text_size = pygame.font.Font.size(FONT, f"Level {self.level}")
         level_text_width = level_text_size[0]
         screen.blit(
-            level_text, (self._screen_width / 2 - level_text_width / 2, 0)
+            level_text,
+            (self._screen_width / 2 - level_text_width / 2, SCREEN_TEXT_GAP),
         )
 
     def display_num_enemies_slain(self, screen):
@@ -227,7 +230,11 @@ class Environment(pygame.sprite.Sprite):
         )
         slain_text_width = slain_text_size[0]
         screen.blit(
-            enemies_slain_counter, (self._screen_width - slain_text_width, 0)
+            enemies_slain_counter,
+            (
+                self._screen_width - slain_text_width - SCREEN_TEXT_GAP,
+                SCREEN_TEXT_GAP,
+            ),
         )
 
     def display_win(self, screen):

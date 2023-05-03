@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # background = pygame.image.load("graphics/background.jpeg")
 # background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 environment = Environment(
-    bg_path="graphics/background.jpeg",
+    bg_path="Animations/sky.png",
     bg_width=SCREEN_WIDTH,
     bg_height=SCREEN_HEIGHT,
 )
