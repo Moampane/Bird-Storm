@@ -4,7 +4,7 @@ File containing the class for an attack.
 import pygame
 
 pygame.init()
-ATK_FONT = pygame.font.SysFont("arial", 30, bold=True)
+ATK_FONT = pygame.font.Font("fonts/pixel.ttf", 40)
 
 
 class Attack(pygame.sprite.Sprite):

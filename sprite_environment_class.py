@@ -7,8 +7,8 @@ from sprite_boss_class import Projectile_Boss
 
 pygame.init()
 
-FONT = pygame.font.SysFont("arial", 30)
-VICTORY_FONT = pygame.font.SysFont("arial", 150, True)
+FONT = pygame.font.Font("fonts/pixel.ttf", 25)
+VICTORY_FONT = pygame.font.Font("fonts/pixel.ttf", 150)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 LVL_1_INTERVAL = 400
