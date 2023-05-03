@@ -5,7 +5,7 @@ import random
 import pygame
 from sprite_bird_class import BirdCharacter
 
-BOSS_IMG_SCALE = 0.5
+BOSS_IMG_SCALE = 0.25
 
 
 class ProjectileBoss(BirdCharacter):

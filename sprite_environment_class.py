@@ -108,7 +108,7 @@ class Environment(pygame.sprite.Sprite):
 
         # Level 1
         # put this back to level 1 when done testing
-        if self.level == 1 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+        if self.level == 2 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
             if self.spawn_timer % LVL_1_INTERVAL == 0:
                 tier1_enemy = Enemy(
                     image_path=RONALD_ENEMY_PATH,
@@ -177,7 +177,7 @@ class Environment(pygame.sprite.Sprite):
 
         # Boss
         # initialize boss
-        if self.level == 5 and not self._boss_spawned:
+        if self.level == 1 and not self._boss_spawned:
             boss = ProjectileBoss(
                 max_health=200,
                 attack=2,
