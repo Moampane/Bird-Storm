@@ -19,6 +19,7 @@ MAX_ENEMIES_ON_SCREEN = 8
 RONALD_ENEMY_PATH = "Animations/Ronald/Ronald_front_right_idle.png"
 ED_ENEMY_PATH = "Animations/Eduardo/Eduardo_front_right_idle.png"
 EMILY_ENEMY_PATH = "Animations/Emily/Emily_front_right_idle.png"
+BOSS_ENEMY_PATH = "Animations/Philipe/Philipe_front_right_idle.png"
 
 
 class Environment(pygame.sprite.Sprite):
@@ -174,9 +175,8 @@ class Environment(pygame.sprite.Sprite):
                 max_health=200,
                 attack=2,
                 movespeed=8,
-                image_path="graphics/kakapo.png",
+                image_path=BOSS_ENEMY_PATH,
                 start_pos=(screen.get_width() / 2, -200),
-                size=(200, 200),
                 bg=screen,
                 player=player,
             )

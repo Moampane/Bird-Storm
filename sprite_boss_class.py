@@ -2,6 +2,8 @@ import pygame
 import random
 from sprite_bird_class import BirdCharacter
 
+BOSS_IMG_SCALE = 0.5
+
 
 class Projectile_Boss(BirdCharacter):
     def __init__(
@@ -11,13 +13,10 @@ class Projectile_Boss(BirdCharacter):
         movespeed,
         image_path,
         start_pos,
-        size,
         bg,
         player,
     ):
         super().__init__(image_path, bg)
-        self._width = size[0]
-        self._height = size[1]
         self._max_hp = max_health
         self._atk = attack
         self._ms = movespeed
@@ -25,10 +24,12 @@ class Projectile_Boss(BirdCharacter):
         self.player = player
         self.incomplete_intro = True
         self.position = "center"
-        self._image = pygame.image.load(image_path).convert_alpha()
-        self._image = pygame.transform.scale(
-            self._image, (self._width, self._height)
+        self._img_scale_factor = BOSS_IMG_SCALE
+        self._image = pygame.transform.scale_by(
+            self._image, self._img_scale_factor
         )
+        self._width = self._image.get_width()
+        self._height = self._image.get_height()
         self._rect = self._image.get_rect(center=start_pos)
         self.complete_move = False
         self._is_facing_right = True
@@ -73,6 +74,7 @@ class Projectile_Boss(BirdCharacter):
                     ]
                 )
             self.move_to_pos(self._new_pos)
+        self.update_img()
 
     def move_to_pos(self, new_pos):
         """
@@ -99,14 +101,10 @@ class Projectile_Boss(BirdCharacter):
             new_y = self._screen.get_height() / 2 - self._height / 2
 
         if new_x > self.rect.x:
-            if not self._is_facing_right:
-                self._image = pygame.transform.flip(self._image, True, False)
-                self._is_facing_right = True
+            self._is_facing_right = True
             self._rect.x += self._ms
         elif new_x < self.rect.x:
-            if self._is_facing_right:
-                self._image = pygame.transform.flip(self._image, True, False)
-                self._is_facing_right = False
+            self._is_facing_right = False
             self._rect.x -= self._ms
 
         if new_y > self.rect.y:
