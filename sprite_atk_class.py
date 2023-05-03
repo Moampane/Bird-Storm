@@ -40,36 +40,47 @@ class Attack(pygame.sprite.Sprite):
         """
         Updates status of the attack.
         """
-        big_gap = 150
-        small_gap = 50
-        if self._character.heading == 0:
+        # big_gap = 150
+        # small_gap = 50
+        # if self._character.heading == 0:
+        #     self._rect = self._image.get_rect(
+        #         center=(
+        #             self._character.rect.x + big_gap,
+        #             self._character.rect.y + small_gap,
+        #         )
+        #     )
+        # if self._character.heading == 90:
+        #     self._rect = self._image.get_rect(
+        #         center=(
+        #             self._character.rect.x + small_gap,
+        #             self._character.rect.y - small_gap,
+        #         )
+        #     )
+        # if self._character.heading == 180:
+        #     self._rect = self._image.get_rect(
+        #         center=(
+        #             self._character.rect.x - small_gap,
+        #             self._character.rect.y + small_gap,
+        #         )
+        #     )
+        # if self._character.heading == 270:
+        #     self._rect = self._image.get_rect(
+        #         center=(
+        #             self._character.rect.x + small_gap,
+        #             self._character.rect.y + big_gap,
+        #         )
+        #     )
+
+        # different way of attacking, test if this is better?
+        if self._character.is_facing_right():
             self._rect = self._image.get_rect(
-                center=(
-                    self._character.rect.x + big_gap,
-                    self._character.rect.y + small_gap,
-                )
+                topleft=(self._character.rect.topright)
             )
-        if self._character.heading == 90:
+        else:
             self._rect = self._image.get_rect(
-                center=(
-                    self._character.rect.x + small_gap,
-                    self._character.rect.y - small_gap,
-                )
+                topright=self._character.rect.topleft
             )
-        if self._character.heading == 180:
-            self._rect = self._image.get_rect(
-                center=(
-                    self._character.rect.x - small_gap,
-                    self._character.rect.y + small_gap,
-                )
-            )
-        if self._character.heading == 270:
-            self._rect = self._image.get_rect(
-                center=(
-                    self._character.rect.x + small_gap,
-                    self._character.rect.y + big_gap,
-                )
-            )
+
         self._animation_loop += 0.5
         self._character.set_atk_status(True)
         if self._animation_loop >= 5:

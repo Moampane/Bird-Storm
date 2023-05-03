@@ -109,6 +109,12 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         """
         return self._heading
 
+    def is_facing_right(self):
+        """
+        Returns whether the character is facing right or not.
+        """
+        return self._is_facing_right
+
     def set_atk_status(self, is_atking):
         """
         Sets the status of whether the character is attacking or not.
