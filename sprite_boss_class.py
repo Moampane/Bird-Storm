@@ -39,6 +39,14 @@ class Projectile_Boss(BirdCharacter):
         self._hp_bar_width = self._width
 
     def take_damage(self, opponent_atk, environment):
+        """
+        Lose an amount of HP based on opponent's ATK stat.
+
+        Args:
+            opponent_atk: an integer representing the opponent's atk stat
+            environment: an Environment object representing the game
+            environment.
+        """
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()

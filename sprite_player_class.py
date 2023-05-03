@@ -98,3 +98,14 @@ class Player(BirdCharacter):
             self._heading = 270
 
         self.update_img()
+
+    def take_damage(self, opponent_atk):
+        """
+        Lose an amount of HP based on opponent's ATK stat.
+
+        Args:
+            opponent_atk: an integer representing the opponent's atk stat
+        """
+        self._remaining_hp -= opponent_atk
+        if self._remaining_hp <= 0:
+            self.kill()

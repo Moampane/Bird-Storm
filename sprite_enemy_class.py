@@ -1,10 +1,9 @@
 """
 File for enemy classes.
 """
-import pygame
 import random
+import pygame
 from sprite_bird_class import BirdCharacter
-from sprite_atk_class import Attack
 
 ENEMY_SCALE_IMG = 0.25
 ENEMY_BASE_MOVESPEED = 2
@@ -93,6 +92,13 @@ class Enemy(BirdCharacter):
         self.update_img()
 
     def take_damage(self, opponent_atk, environment):
+        """
+        Makes enemy take damage and updates environment's num_enemies_slain.
+        Args:
+            opponent_atk: an integer representing the opponent's atk stat
+            environment: an Environment object representing the game
+            environment.
+        """
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()

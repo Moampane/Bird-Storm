@@ -125,17 +125,6 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         """
         self._is_atking = is_atking
 
-    def take_damage(self, opponent_atk):
-        """
-        Lose an amount of HP based on opponent's ATK stat.
-
-        Args:
-            opponent_atk: an integer representing the opponent's atk stat
-        """
-        self._remaining_hp -= opponent_atk
-        if self._remaining_hp <= 0:
-            self.kill()
-
     def update(self):
         """
         Updates status of characters.
