@@ -1,10 +1,12 @@
 """
 File for bullet class.
 """
-import sprite_atk_class
 import pygame
+import sprite_atk_class
+
 
 BULLET_SPEED = 5
+BULLET_DAMAGE = 25
 
 
 class Bullet(sprite_atk_class.Attack):
@@ -26,6 +28,7 @@ class Bullet(sprite_atk_class.Attack):
         self._move_y = move_y
         self._screen_width = bg_width
         self._screen_height = bg_height
+        self._damage = BULLET_DAMAGE
 
     def shoot(self):
         # change in x
@@ -49,3 +52,10 @@ class Bullet(sprite_atk_class.Attack):
             or self._rect.y > self._screen_height - 50
         ):
             self.kill()
+
+    @property
+    def damage(self):
+        """
+        Returns the integer of damage.
+        """
+        return self._damage

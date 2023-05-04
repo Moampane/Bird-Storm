@@ -128,5 +128,16 @@ while True:
     for boss in boss_hits_player:
         mc.take_damage(boss.atk)
 
+    # Bullet hits player
+    if len(boss_bullet_group.sprites()) > 0:
+        bullet_hits_player = pygame.sprite.spritecollide(
+            mc, boss_bullet_group, False
+        )
+        for bullet in bullet_hits_player:
+            if bullet.first_hit:
+                mc.take_damage(bullet.damage)
+                bullet.set_first_hit_false()
+                bullet.kill()
+
     pygame.display.flip()
     clock.tick(60)
