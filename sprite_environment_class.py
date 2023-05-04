@@ -41,6 +41,8 @@ class Environment(pygame.sprite.Sprite):
         rates.
         _boss_spawned: a boolean representing if the boss has spawned.
         _boss_slain: a boolean representing if the boss has been slain.
+        _stop_spawning: a boolean saying if the game should stop spawning
+        enemies or not
     """
 
     def __init__(self, bg_path, bg_width, bg_height):
@@ -66,6 +68,7 @@ class Environment(pygame.sprite.Sprite):
         self.spawn_timer = 0
         self._boss_spawned = False
         self._boss_slain = False
+        self._stop_spawning = False
 
     def set_boss_slain_true(self):
         """
@@ -108,7 +111,11 @@ class Environment(pygame.sprite.Sprite):
 
         # Level 1
         # put this back to level 1 when done testing
-        if self.level == 1 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+        if (
+            self.level == 1
+            and self.num_enemies < MAX_ENEMIES_ON_SCREEN
+            and not self._stop_spawning
+        ):
             if self.spawn_timer % LVL_1_INTERVAL == 0:
                 tier1_enemy = Enemy(
                     image_path=RONALD_ENEMY_PATH,
@@ -121,7 +128,11 @@ class Environment(pygame.sprite.Sprite):
                 self.level = 2
 
         # Level 2
-        if self.level == 2 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+        if (
+            self.level == 2
+            and self.num_enemies < MAX_ENEMIES_ON_SCREEN
+            and not self._stop_spawning
+        ):
             if self.spawn_timer % LVL_2_INTERVAL == 0:
                 tier2_enemy = Enemy(
                     image_path=ED_ENEMY_PATH,
@@ -134,7 +145,11 @@ class Environment(pygame.sprite.Sprite):
                 self.level = 3
 
         # Level 3
-        if self.level == 3 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+        if (
+            self.level == 3
+            and self.num_enemies < MAX_ENEMIES_ON_SCREEN
+            and not self._stop_spawning
+        ):
             if self.spawn_timer % LVL_3_INTERVAL == 0:
                 tier3_enemy = Enemy(
                     image_path=EMILY_ENEMY_PATH,
@@ -147,7 +162,11 @@ class Environment(pygame.sprite.Sprite):
                 self.level = 4
 
         # Level 4
-        if self.level == 4 and self.num_enemies < MAX_ENEMIES_ON_SCREEN:
+        if (
+            self.level == 4
+            and self.num_enemies < MAX_ENEMIES_ON_SCREEN
+            and not self._stop_spawning
+        ):
             if self.spawn_timer % LVL_3_INTERVAL == 0:
                 tier1_enemy = Enemy(
                     image_path=RONALD_ENEMY_PATH,
@@ -172,12 +191,13 @@ class Environment(pygame.sprite.Sprite):
                     tier=self.level,
                 )
                 enemy_group.add(tier3_enemy)
-            if self.num_enemies_slain >= 15:
+        if self.level != 5 and self.num_enemies_slain >= 15:
+            self._stop_spawning = True
+            if self.num_enemies == 0 and self.spawn_timer % LVL_1_INTERVAL != 0:
+                self.display_boss_message(screen)
                 self.level = 5
 
         # Boss
-        # initialize boss
-        # change back to level 5 when done testing
         if self.level == 5 and not self._boss_spawned:
             boss = ProjectileBoss(
                 image_path=BOSS_ENEMY_PATH,
@@ -276,7 +296,7 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             death_text,
             (
-                self._screen_width // 2  - death_text_size[0]/ 2,
+                self._screen_width // 2 - death_text_size[0] / 2,
                 self._screen_height // 2 - death_text_size[1] / 2,
             ),
         )
@@ -287,7 +307,25 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             restart_text,
             (
-                self._screen_width // 2 ,
+                self._screen_width // 2,
                 self._screen_height // 2 + death_text_size[1] / 2,
+            ),
+        )
+
+    def display_boss_message(self, screen):
+        """
+        Displays a warning about the incoming boss fight.
+        Args:
+            screen: the pygame display that the game is on
+        """
+        message = FONT.render("A menacing figure is approaching...", False, RED)
+        message_size = pygame.font.Font.size(
+            FONT, "A menacing figure is approaching..."
+        )
+        screen.blit(
+            message,
+            (
+                self._screen_width // 2,
+                self._screen_height // 2 + message_size[1] / 2,
             ),
         )
