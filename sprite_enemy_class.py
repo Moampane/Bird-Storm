@@ -61,6 +61,7 @@ class Enemy(BirdCharacter):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
+        self._hp_bar_width = self._width
         tier_multiplier = tier
         self._max_hp = tier_multiplier * ENEMY_BASE_MAX_HP
         self._atk = tier_multiplier * ENEMY_BASE_ATK

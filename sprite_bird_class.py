@@ -55,6 +55,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._rect = None
         self._attack_hitbox = pygame.sprite.Sprite()
         self._img_scale_factor = None
+        self._hp_bar_width = self._width
 
         # Set up universal attributes that are same for all subclasses
         self._image = pygame.image.load(image_path).convert_alpha()
@@ -137,7 +138,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         # Health bar
         hp_bar_thickness = 7
         hp_bar_gap = 15
-        hp_bar_percent = self._remaining_hp / self._max_hp * self._width
+        hp_bar_percent = self._remaining_hp / self._max_hp * self._hp_bar_width
         pygame.draw.rect(
             self._screen,
             "Green",
@@ -186,11 +187,3 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
-
-    # @abstractmethod
-    # def attack(self):
-    #     """
-    #     Initializes an Attack instance that is associated with a BirdCharacter
-    #     Will be implemented in subclasses.
-    #     MAKE LATER IF WE HAVE TIME
-    #     """

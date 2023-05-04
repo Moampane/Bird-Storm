@@ -70,6 +70,7 @@ class ProjectileBoss(BirdCharacter):
             ["center", "bottom left", "bottom right", "top left", "top right"]
         )
         self._timer = 0
+        self._hp_bar_width = self._width
         self._bullet_group = bullet_group
 
     def take_damage(self, opponent_atk, environment):
@@ -125,6 +126,7 @@ class ProjectileBoss(BirdCharacter):
         # Randomly choose Boss movement
         if not self._incomplete_intro:
             if self._timer % 100 == 0:
+                self.set_atk_status(True)
                 self._new_pos = random.choice(
                     [
                         "center",
@@ -137,6 +139,8 @@ class ProjectileBoss(BirdCharacter):
                 self.bullet_spray(self._bullet_group)
             self.move_to_pos(self._new_pos)
         self.update_img()
+        if self._timer % 200 == 0:
+            self.set_atk_status(False)
 
         # increment timer
         self._timer += 1
