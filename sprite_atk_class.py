@@ -15,8 +15,10 @@ class Attack(pygame.sprite.Sprite):
         _character: A BirdCharacter instance representing the attacking
         character.
         _image: A pygame image representing the character's attack hitbox.
-        _rect: A pygame rectangle mapped to the attack's image
+        _rect: A pygame rectangle mapped to the attack's image.
         _animation_loop: An int representing the frame the animation is on.
+        _first_hit: A boolean representing whether the first hit has
+        occurred or not.
     """
 
     def __init__(self, character, group):
