@@ -88,7 +88,7 @@ class Enemy(BirdCharacter):
         player_y = self._player.rect.y
         enemy_x = self._rect.x
         enemy_y = self._rect.y
-        dist_between = 50
+        dist_between = 100
 
         # If enemy is too far left or right of player, move enemy towards
         # left or right depending on which side player is on
