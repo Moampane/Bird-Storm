@@ -107,6 +107,13 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         """
         return self._heading
 
+    @property
+    def screen(self):
+        """
+        Returns the pygame display screen.
+        """
+        return self._screen
+
     def is_facing_right(self):
         """
         Returns whether the character is facing right or not.
