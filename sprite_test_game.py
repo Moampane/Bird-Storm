@@ -59,10 +59,16 @@ while True:
     # Bullets
     if timer % 50 == 0 and len(boss_group.sprites()) > 0:
         bullet = Bullet(
-            character=boss_group.sprites()[0], group=boss_bullet_group
+            character=boss_group.sprites()[0],
+            group=boss_bullet_group,
+            move_x=True,
+            move_y=True,
+            bg_width=SCREEN_WIDTH,
+            bg_height=SCREEN_HEIGHT,
         )
         boss_bullet_group.add(bullet)
     boss_bullet_group.draw(screen)
+    boss_bullet_group.update()
 
     # Boss
     boss_group.draw(screen)
