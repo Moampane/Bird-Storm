@@ -6,7 +6,7 @@ import sprite_atk_class
 
 
 BULLET_SPEED = 5
-BULLET_DAMAGE = 25
+BULLET_DAMAGE = 10
 
 
 class Bullet(sprite_atk_class.Attack):
@@ -46,10 +46,10 @@ class Bullet(sprite_atk_class.Attack):
         self.shoot()
         # if bullet goes out of bounds remove it
         if (
-            self._rect.x > self._screen_width - 50
-            or self._rect.x < 50
-            or self._rect.y < 50
-            or self._rect.y > self._screen_height - 50
+            self._rect.x > self._screen_width + 100
+            or self._rect.x < -100
+            or self._rect.y < -100
+            or self._rect.y > self._screen_height + 100
         ):
             self.kill()
 
