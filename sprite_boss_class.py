@@ -6,10 +6,10 @@ import pygame
 from sprite_bird_class import BirdCharacter
 from sprite_bullet_class import Bullet
 
-BOSS_IMG_SCALE = 0.5
+BOSS_IMG_SCALE = 0.4
 BOSS_MAX_HEALTH = 200
 BOSS_ATTACK = 1
-BOSS_MOVESPEED = 8
+BOSS_MOVESPEED = 4
 
 
 class ProjectileBoss(BirdCharacter):

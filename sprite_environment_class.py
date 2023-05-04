@@ -276,18 +276,18 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             death_text,
             (
-                self._screen_width / 2 - death_text_size[0] / 2,
-                self._screen_height / 2 - death_text_size[1] / 2,
+                self._screen_width // 2  - death_text_size[0]/ 2,
+                self._screen_height // 2 - death_text_size[1] / 2,
             ),
         )
-        restart_text = FONT.render("lol fucking loser", False, RED)
+        restart_text = FONT.render("lol clucking loser", False, RED)
         restart_text_size = pygame.font.Font.size(
-            VICTORY_FONT, "lol fucking loser"
+            VICTORY_FONT, "lol clucking loser"
         )
         screen.blit(
             restart_text,
             (
-                self._screen_width / 2 - restart_text_size[0] / 2,
-                self._screen_height / 2 + death_text_size[1] / 2,
+                self._screen_width // 2 ,
+                self._screen_height // 2 + death_text_size[1] / 2,
             ),
         )
