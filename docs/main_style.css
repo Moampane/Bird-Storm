@@ -35,3 +35,7 @@ p {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+a {
+    font-size: 25px;
+}
