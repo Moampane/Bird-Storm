@@ -59,6 +59,7 @@ while True:
     # boss_group.update(environment.spawn_timer)
     boss_group.update()
 
+    # Be able to quit game and attack
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
