@@ -8,7 +8,7 @@ from sprite_bullet_class import Bullet
 
 BOSS_IMG_SCALE = 0.4
 BOSS_MAX_HEALTH = 200
-BOSS_ATTACK = 1
+BOSS_ATTACK = 0.5
 BOSS_MOVESPEED = 4
 
 

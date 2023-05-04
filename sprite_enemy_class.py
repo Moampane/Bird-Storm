@@ -7,7 +7,7 @@ from sprite_bird_class import BirdCharacter
 
 ENEMY_SCALE_IMG = 0.25
 ENEMY_BASE_MOVESPEED = 2
-ENEMY_BASE_ATK = 5
+ENEMY_BASE_ATK = 3
 ENEMY_BASE_MAX_HP = 20
 
 
