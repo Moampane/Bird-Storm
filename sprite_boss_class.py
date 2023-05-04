@@ -118,11 +118,17 @@ class ProjectileBoss(BirdCharacter):
             # Moves boss
             self._rect.y += 40
             # Forces player in place
-            self._player.rect.y = self._screen.get_height() - 100
-            self._player.rect.x = self._screen.get_width() / 2 - 50
+            self._player.rect.y = (
+                self._screen.get_height() - self._player.height
+            )
+            self._player.rect.x = (
+                self._screen.get_width() / 2 - self._player.width
+            )
+            self._player.control_movement(False)
             # Ends intro
             if self._rect.y >= self._screen.get_height() / 2 - 100:
                 self._incomplete_intro = False
+                self._player.control_movement(True)
 
         # Randomly choose Boss movement
         if not self._incomplete_intro:
@@ -146,7 +152,6 @@ class ProjectileBoss(BirdCharacter):
 
         # increment timer
         self._timer += 1
-
         self._atk_timer += 1
 
     def move_to_pos(self, new_pos):

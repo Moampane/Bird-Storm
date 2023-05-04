@@ -41,6 +41,8 @@ class Player(BirdCharacter):
         _img_scale_factor: float factor by which to scale the player's image
         on the screen.
         _hp_bar_width: integer width of the HP bar
+        _can_move = boolean saying if player is able to move according
+        to player input or not
     """
 
     def __init__(self, image_path, screen):
@@ -71,6 +73,7 @@ class Player(BirdCharacter):
             screen.get_height() - self._height / 2,
         )
         self._rect = self._image.get_rect(center=self._start_pos)
+        self._can_move = True
 
     def update(self):
         """
@@ -80,22 +83,23 @@ class Player(BirdCharacter):
         keys = pygame.key.get_pressed()
 
         # player movement
-        if keys[pygame.K_a]:
-            self._rect.x -= self._ms
-            self._is_facing_right = False
-            self._heading = 180
-        if keys[pygame.K_d]:
-            self._rect.x += self._ms
-            self._is_facing_right = True
-            self._heading = 0
-        if keys[pygame.K_w]:
-            self._rect.y -= self._ms
-            self._is_facing_forward = False
-            self._heading = 90
-        if keys[pygame.K_s]:
-            self._rect.y += self._ms
-            self._is_facing_forward = True
-            self._heading = 270
+        if self._can_move:
+            if keys[pygame.K_a]:
+                self._rect.x -= self._ms
+                self._is_facing_right = False
+                self._heading = 180
+            if keys[pygame.K_d]:
+                self._rect.x += self._ms
+                self._is_facing_right = True
+                self._heading = 0
+            if keys[pygame.K_w]:
+                self._rect.y -= self._ms
+                self._is_facing_forward = False
+                self._heading = 90
+            if keys[pygame.K_s]:
+                self._rect.y += self._ms
+                self._is_facing_forward = True
+                self._heading = 270
 
         self.update_img()
 
@@ -109,3 +113,13 @@ class Player(BirdCharacter):
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()
+
+    def control_movement(self, enable_move):
+        """
+        Disable or enable player movement.
+
+        Args:
+            enable_move: a bool representing if player is allowed to move
+            or not.
+        """
+        self._can_move = enable_move
