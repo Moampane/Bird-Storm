@@ -50,29 +50,18 @@ while True:
     timer += 1
     # Background
     env_group.draw(screen)
-    env_group.update(screen, enemy_group, boss_group, mc)
+    env_group.update(screen, enemy_group, boss_group, mc, boss_bullet_group)
 
     # Enemies
     enemy_group.draw(screen)
     enemy_group.update()
 
     # Bullets
-    if timer % 50 == 0 and len(boss_group.sprites()) > 0:
-        bullet = Bullet(
-            character=boss_group.sprites()[0],
-            group=boss_bullet_group,
-            move_x=True,
-            move_y=True,
-            bg_width=SCREEN_WIDTH,
-            bg_height=SCREEN_HEIGHT,
-        )
-        boss_bullet_group.add(bullet)
     boss_bullet_group.draw(screen)
     boss_bullet_group.update()
 
     # Boss
     boss_group.draw(screen)
-    # boss_group.update(environment.spawn_timer)
     boss_group.update()
 
     # Be able to quit game and attack

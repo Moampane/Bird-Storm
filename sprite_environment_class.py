@@ -87,7 +87,7 @@ class Environment(pygame.sprite.Sprite):
         """
         return self._rect
 
-    def update(self, screen, enemy_group, boss_group, player):
+    def update(self, screen, enemy_group, boss_group, player, bullet_group):
         """
         Updates current state of the environment. Controls enemy spawns
         and displays enemies on screen, slain, and level.
@@ -183,6 +183,7 @@ class Environment(pygame.sprite.Sprite):
                 image_path=BOSS_ENEMY_PATH,
                 bg=screen,
                 player=player,
+                bullet_group=bullet_group,
             )
             boss_group.add(boss)
             self._boss_spawned = True

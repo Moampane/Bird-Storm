@@ -4,7 +4,7 @@ File for bullet class.
 import sprite_atk_class
 import pygame
 
-BULLET_SPEED = 1
+BULLET_SPEED = 5
 
 
 class Bullet(sprite_atk_class.Attack):
@@ -29,11 +29,9 @@ class Bullet(sprite_atk_class.Attack):
 
     def shoot(self):
         # change in x
-        if self._move_x:
-            self._rect.x += BULLET_SPEED
+        self._rect.x += self._move_x * BULLET_SPEED
         # change in y
-        if self._move_y:
-            self._rect.y += BULLET_SPEED
+        self._rect.y += self._move_y * BULLET_SPEED
 
     # def set_x_speed(self, x_speed):
     #     self._x_speed = x_speed

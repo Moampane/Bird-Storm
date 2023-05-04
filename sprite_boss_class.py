@@ -4,6 +4,7 @@ File for ProjectileBoss class.
 import random
 import pygame
 from sprite_bird_class import BirdCharacter
+from sprite_bullet_class import Bullet
 
 BOSS_IMG_SCALE = 0.5
 BOSS_MAX_HEALTH = 200
@@ -39,12 +40,7 @@ class ProjectileBoss(BirdCharacter):
         _timer: an integer representing the Boss' internal timer
     """
 
-    def __init__(
-        self,
-        image_path,
-        bg,
-        player,
-    ):
+    def __init__(self, image_path, bg, player, bullet_group):
         """
         Initializes instance of ProjectileBoss
 
@@ -74,6 +70,7 @@ class ProjectileBoss(BirdCharacter):
             ["center", "bottom left", "bottom right", "top left", "top right"]
         )
         self._timer = 0
+        self._bullet_group = bullet_group
 
     def take_damage(self, opponent_atk, environment):
         """
@@ -88,6 +85,20 @@ class ProjectileBoss(BirdCharacter):
         if self._remaining_hp <= 0:
             self.kill()
             environment.set_boss_slain_true()
+
+    def bullet_spray(self, group):
+        move_x_vals = [0, 1, 1, 1, 0, -1, -1, -1]
+        move_y_vals = [-1, -1, 0, 1, 1, 1, 0, -1]
+        screen_width, screen_height = self.screen.get_size()
+        for idx in range(8):
+            Bullet(
+                self,
+                group,
+                move_x_vals[idx],
+                move_y_vals[idx],
+                screen_width,
+                screen_height,
+            )
 
     def update(self):
         """
@@ -123,6 +134,7 @@ class ProjectileBoss(BirdCharacter):
                         "top right",
                     ]
                 )
+                self.bullet_spray(self._bullet_group)
             self.move_to_pos(self._new_pos)
         self.update_img()
 
