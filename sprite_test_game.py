@@ -3,6 +3,7 @@ import sys
 from sprite_player_class import *
 from sprite_environment_class import *
 from sprite_atk_class import *
+from sprite_bullet_class import *
 
 # Setup
 pygame.init()
@@ -34,6 +35,7 @@ enemy_atk = pygame.sprite.Sprite()
 # Attack groups
 player_atk_group = pygame.sprite.Group()
 enemy_atk_group = pygame.sprite.Group()
+boss_bullet_group = pygame.sprite.Group()
 
 # Enemy Group
 enemy_group = pygame.sprite.Group()
@@ -53,6 +55,14 @@ while True:
     # Enemies
     enemy_group.draw(screen)
     enemy_group.update()
+
+    # Bullets
+    if timer % 50 == 0 and len(boss_group.sprites()) > 0:
+        bullet = Bullet(
+            character=boss_group.sprites()[0], group=boss_bullet_group
+        )
+        boss_bullet_group.add(bullet)
+    boss_bullet_group.draw(screen)
 
     # Boss
     boss_group.draw(screen)
