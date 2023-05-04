@@ -78,10 +78,14 @@ class Attack(pygame.sprite.Sprite):
             self._rect = self._image.get_rect(
                 topleft=(self._character.rect.topright)
             )
+            self._rect.width = self._rect.width * 3
+            self._rect.height = self._rect.height * 3
         else:
             self._rect = self._image.get_rect(
                 topright=self._character.rect.topleft
             )
+            self._rect.width = self._rect.width * 3
+            self._rect.height = self._rect.height * 3
 
         self._animation_loop += 0.5
         self._character.set_atk_status(True)
