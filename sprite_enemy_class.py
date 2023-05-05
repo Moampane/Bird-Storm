@@ -127,7 +127,7 @@ class Enemy(BirdCharacter):
         self._remaining_hp -= opponent_atk
         if self._remaining_hp <= 0:
             self.kill()
-            environment.num_enemies_slain += 1
+            environment.add_num_enemies_slain(1)
 
     @property
     def atk_timer(self):

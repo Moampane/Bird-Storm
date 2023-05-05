@@ -50,6 +50,7 @@ reset_game = False
 
 # Game Loop
 while True:
+    # Option to reset the game (runs once the game is over)
     if environment.reset_game:
         mc = reset_mc(screen)
         environment = reset_environment()
@@ -65,10 +66,11 @@ while True:
         enemy_group = pygame.sprite.Group()
         boss_group = pygame.sprite.Group()
 
-        environment.reset_game = False
+        environment.set_reset_game(False)
         timer = 0
-        environment.start_not_pressed = True
+        environment.set_start_not_pressed(True)
 
+    # displays introduction screen
     while environment.start_not_pressed:
         intro_screen(
             screen,
@@ -143,10 +145,6 @@ while True:
                     for mc in enemy_atk_hit_player:
                         mc.take_damage(enemy.atk)
                     enemy_atk.set_first_hit_false()
-
-    # enemies_hit_player = pygame.sprite.spritecollide(mc, enemy_group, False)
-    # for enemy in enemies_hit_player:
-    #     mc.take_damage(enemy.atk)
 
     # Attacks hit boss
     if pygame.sprite.Sprite.alive(player_atk):

@@ -84,7 +84,7 @@ def intro_screen(
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                environment.start_not_pressed = False
+                environment.set_start_not_pressed(False)
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
                 player_atk = Attack(mc, player_atk_group)
 
