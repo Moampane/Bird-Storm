@@ -16,7 +16,10 @@ pip install -r requirements.txt
 `docs/`: hold all files for the GitHub Pages website associated with *Bird Storm*, linked at [olincollege.github.io/Bird-Storm](https://olincollege.github.io/Bird-Storm).
 
 ### Unit Tests
-Unit tests are available through using pytest in files starting with `test_`. Running `python -m pytest` will run all unit tests.
+Unit tests are available through using pytest in files starting with `test_`. Running the command below will run all unit tests.
+```
+python -m pytest
+```
 
 ### Game Controls
 W: Move up\
