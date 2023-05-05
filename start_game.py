@@ -33,6 +33,12 @@ controls_y_gap = start_txt_size[1] + 50
 
 
 def reset_environment():
+    """
+    Resets the environment instance.
+
+    Returns:
+        A clean instance of Environment with no data in it.
+    """
     environment = Environment(
         bg_path=BACKGROUND_IMG_PATH,
         bg_width=SCREEN_WIDTH,
@@ -42,6 +48,14 @@ def reset_environment():
 
 
 def reset_mc(screen):
+    """
+    Resets the main character instance of the Player.
+
+    Args:
+        screen: a pygame surface that the game is displayed on.
+    Returns:
+        A clean instance of Player with no data in it.
+    """
     mc = Player(PLAYER_IMG_PATH, screen)
     return mc
 
@@ -53,6 +67,17 @@ def intro_screen(
     player_atk_group,
     player_group,
 ):
+    """
+    Displays the introduction screen.
+
+    Args:
+        screen: a pygame surface that the game is displayed on.
+        environment: an instance of Environment that controls the game's state
+        mc: an instance of Player that represents the player
+        player_atk_group: the pygame Sprite Group that holds the player's
+        Attack sprites
+        player_group: the pygame Sprite Group that holds the player
+    """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
