@@ -65,7 +65,7 @@ class Attack(pygame.sprite.Sprite):
                 )
             )
             self._rect.width = self._rect.width * ATK_SCALE
-            self._rect.height = self._rect.height * ATK_SCALE
+            self._rect.height = self._rect.height * (ATK_SCALE + 1)
 
         self._animation_loop += 0.5
         self._character.set_atk_status(True)
