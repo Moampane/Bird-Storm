@@ -97,10 +97,8 @@ class ProjectileBoss(BirdCharacter):
             Bullet(
                 self,
                 group,
-                move_x_vals[idx],
-                move_y_vals[idx],
-                screen_width,
-                screen_height,
+                (move_x_vals[idx], move_y_vals[idx]),
+                (screen_width, screen_height),
             )
 
     def update(self):
