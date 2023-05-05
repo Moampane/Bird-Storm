@@ -2,8 +2,8 @@
 File containing functions for creating start screen and resetting.
 """
 
-import pygame
 import sys
+import pygame
 from sprite_atk_class import Attack
 from sprite_environment_class import Environment
 from sprite_player_class import Player
@@ -86,7 +86,7 @@ def intro_screen(
             if event.key == pygame.K_RETURN:
                 environment.set_start_not_pressed(False)
             if event.key == pygame.K_SPACE and pygame.sprite.Sprite.alive(mc):
-                player_atk = Attack(mc, player_atk_group)
+                _ = Attack(mc, player_atk_group)
 
     screen.blit(background_img, (0, 0))
     player_group.draw(screen)

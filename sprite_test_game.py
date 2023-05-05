@@ -1,9 +1,11 @@
-import pygame
+"""
+File for running the main game loop.
+"""
 import sys
-from sprite_player_class import *
-from sprite_environment_class import *
-from sprite_atk_class import *
-from sprite_bullet_class import *
+import pygame
+from sprite_player_class import Player
+from sprite_environment_class import Environment
+from sprite_atk_class import Attack
 from start_game import intro_screen, reset_mc, reset_environment
 
 # Setup

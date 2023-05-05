@@ -4,7 +4,9 @@ max-line-length=80
 
 ; Disabling pylint error for too many attributes because sprite classes
 ; do need all the currently used attributes to function
-disable = too-many-instance-attributes
+; Disabling error for invalid naming because pylint wanted non-constant
+; variable names to conform to uppercase naming style
+disable = too-many-instance-attributes, invalid-name
 
 ; Getting rid of false positive pylint errors associated with pygame
 extension-pkg-allow-list = pygame
