@@ -4,22 +4,9 @@ Unit tests for overarching Bird Class
 
 from sprite_bird_class import *
 from sprite_player_class import *
-
-# from sprite_test_game import *
 import pygame
 
-"""
-    Ideas:
-    check that the character's position/image updates when moved 
-    left or right
-    check that the character's hp is the right width
-    check character size is correct scale
-"""
 TEST_PATH = "Animations/Steve/Steve_front_left_idle.png"
-# pygame.init()
-# clock = pygame.time.Clock()
-
-# Game Screen
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 screen1 = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -56,23 +43,92 @@ def test_hp_length():
     assert abs(bird._hp_bar_width - idle_width) <= 1
 
 
-def test_enemy_position():
-    """
-    The enemy should
-    """
-    pass
-
-
-def test_animation():
+def test_animation_front_right_atk():
     """
     Test that the character's animation is mapped to the correct image
     """
     bird = Player(TEST_PATH, screen1)
-    bird.is_facing_right()
+    bird._is_facing_right = True
+    bird._is_facing_forward = True
     bird.set_atk_status(True)
     actual_img_path = bird.update_img()
     expected_img_path = "Animations/Steve/Steve_front_right_atk.png"
     assert actual_img_path == expected_img_path
 
 
-# write out every permutation
+def test_animation_front_left_atk():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_right = False
+    bird._is_facing_forward = True
+    bird.set_atk_status(True)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_front_left_atk.png"
+    assert actual_img_path == expected_img_path
+
+
+def test_animation_back_left_atk():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_forward = False
+    bird._is_facing_right = False
+    bird.set_atk_status(True)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_back_left_atk.png"
+    assert actual_img_path == expected_img_path
+
+
+def test_animation_back_right_atk():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_forward = False
+    bird._is_facing_right = True
+    bird.set_atk_status(True)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_back_right_atk.png"
+    assert actual_img_path == expected_img_path
+
+
+def test_animation_front_right_idle():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_forward = True
+    bird._is_facing_right = True
+    bird.set_atk_status(False)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_front_right_idle.png"
+    assert actual_img_path == expected_img_path
+
+
+def test_animation_back_right_idle():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_forward = False
+    bird._is_facing_right = True
+    bird.set_atk_status(False)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_back_right_idle.png"
+    assert actual_img_path == expected_img_path
+
+
+def test_animation_back_left_idle():
+    """
+    Test that the character's animation is mapped to the correct image
+    """
+    bird = Player(TEST_PATH, screen1)
+    bird._is_facing_forward = False
+    bird._is_facing_right = False
+    bird.set_atk_status(False)
+    actual_img_path = bird.update_img()
+    expected_img_path = "Animations/Steve/Steve_back_left_idle.png"
+    assert actual_img_path == expected_img_path
