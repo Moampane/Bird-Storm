@@ -6,7 +6,7 @@ import pygame
 from sprite_bird_class import BirdCharacter
 from sprite_bullet_class import Bullet
 
-BOSS_IMG_SCALE = 0.4
+BOSS_IMG_SCALE = 0.45
 BOSS_MAX_HEALTH = 200
 BOSS_ATTACK = 0.5
 BOSS_MOVESPEED = 4
@@ -73,6 +73,7 @@ class ProjectileBoss(BirdCharacter):
         self._hp_bar_width = self._width
         self._bullet_group = bullet_group
         self._atk_timer = 0
+        self._disable_bounds = True
 
     def take_damage(self, opponent_atk, environment):
         """
@@ -118,21 +119,20 @@ class ProjectileBoss(BirdCharacter):
             # Moves boss
             self._rect.y += 40
             # Forces player in place
+            self._player.rect.x = self._player.width
             self._player.rect.y = (
-                self._screen.get_height() - self._player.height
-            )
-            self._player.rect.x = (
-                self._screen.get_width() / 2 - self._player.width
+                self._screen.get_height() / 2 - self._player.height / 2
             )
             self._player.control_movement(False)
             # Ends intro
             if self._rect.y >= self._screen.get_height() / 2 - 100:
+                self._disable_bounds = False
                 self._incomplete_intro = False
                 self._player.control_movement(True)
 
         # Randomly choose Boss movement
         if not self._incomplete_intro:
-            if self._timer % 100 == 0:
+            if self._timer % 200 == 0:
                 self.set_atk_status(True)
                 self._atk_timer = 0
                 self._new_pos = random.choice(

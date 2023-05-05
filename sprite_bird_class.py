@@ -65,6 +65,7 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._is_atking = False
         self._char_name = image_path.partition("_")[0]
         self._heading = 0
+        self._disable_bounds = False
 
     @property
     def image(self):
@@ -151,9 +152,20 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         )
 
         # Force characters to stay within screen bounds
+        if not self._disable_bounds:
+            character_top_gap = hp_bar_gap + hp_bar_thickness
+            self.stay_in_bounds(character_top_gap)
+
+    def stay_in_bounds(self, character_top_gap):
+        """
+        Forces character to stay within the bounds of the screen.
+        Args:
+            character_top_gap: an int representing how much space there is on
+            top of the character (accounting for HP bar)
+        """
         self.rect.x = max(0, self.rect.x)
         self.rect.x = min(self.rect.x, self._screen.get_width() - self.width)
-        self.rect.y = max(hp_bar_gap + hp_bar_thickness, self.rect.y)
+        self.rect.y = max(character_top_gap, self.rect.y)
         self.rect.y = min(self.rect.y, self._screen.get_height() - self.height)
 
     def update_img(self):

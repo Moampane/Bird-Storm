@@ -43,6 +43,8 @@ class Environment(pygame.sprite.Sprite):
         _boss_slain: a boolean representing if the boss has been slain.
         _stop_spawning: a boolean saying if the game should stop spawning
         enemies or not
+        _message_timer: an int recording the time interval in which certain
+        messages are displayed on screen
     """
 
     def __init__(self, bg_path, bg_width, bg_height):
@@ -69,6 +71,7 @@ class Environment(pygame.sprite.Sprite):
         self._boss_spawned = False
         self._boss_slain = False
         self._stop_spawning = False
+        self._message_timer = 0
 
     def set_boss_slain_true(self):
         """
@@ -194,19 +197,21 @@ class Environment(pygame.sprite.Sprite):
         if self.level != 5 and self.num_enemies_slain >= 15:
             self._stop_spawning = True
             if self.num_enemies == 0 and self.spawn_timer % LVL_1_INTERVAL != 0:
-                self.display_boss_message(screen)
                 self.level = 5
 
         # Boss
         if self.level == 5 and not self._boss_spawned:
-            boss = ProjectileBoss(
-                image_path=BOSS_ENEMY_PATH,
-                bg=screen,
-                player=player,
-                bullet_group=bullet_group,
-            )
-            boss_group.add(boss)
-            self._boss_spawned = True
+            self.display_boss_message(screen)
+            self._message_timer += 1
+            if self._message_timer >= 100:
+                boss = ProjectileBoss(
+                    image_path=BOSS_ENEMY_PATH,
+                    bg=screen,
+                    player=player,
+                    bullet_group=bullet_group,
+                )
+                boss_group.add(boss)
+                self._boss_spawned = True
 
         # Display win
         if self._boss_slain:
@@ -325,7 +330,7 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             message,
             (
-                self._screen_width // 2,
+                self._screen_width // 2 - message_size[0] / 2,
                 self._screen_height // 2 + message_size[1] / 2,
             ),
         )
