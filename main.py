@@ -21,6 +21,8 @@ TIMER_INCREMENT = 1
 ENEMY_ATK_INTERVAL = 69
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Bird Storm")
+
 environment = Environment(
     bg_path=BACKGROUND_IMG_PATH,
     bg_width=SCREEN_WIDTH,
