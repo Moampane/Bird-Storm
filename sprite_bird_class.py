@@ -211,3 +211,5 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
+
+        return updated_img_path

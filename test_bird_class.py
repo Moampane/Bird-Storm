@@ -15,7 +15,7 @@ import pygame
     check that the character's hp is the right width
     check character size is correct scale
 """
-test_path = "Animations/Steve/Steve_front_left_atk.png"
+TEST_PATH = "Animations/Steve/Steve_front_left_atk.png"
 # pygame.init()
 # clock = pygame.time.Clock()
 
@@ -29,25 +29,33 @@ def test_check_hp():
     """
     Test that the character's remaining HP is set to the correct value after taking damage.
     """
-    bird = Player(test_path, screen1)
-    initial_hp = bird._remaining_hp
+    bird = Player(TEST_PATH, screen1)
+    initial_hp = bird.remaining_hp
     opponent_atk = 10
     bird.take_damage(opponent_atk)
-    assert bird._remaining_hp == initial_hp - opponent_atk
+    assert bird.remaining_hp == initial_hp - opponent_atk
+
+
+def test_stay_in_bounds():
+    """ """
+    bird = Player(TEST_PATH, screen1)
+    bird.update()
+    pass
 
 
 def test_enemy_position():
     """
     The enemy should
     """
+    pass
 
 
 def test_animation():
     """
     Test that the character's animation is mapped to the correct image
     """
-    bird = Player(test_path, screen1)
-    bird.is_facing_right() == True
+    bird = Player(TEST_PATH, screen1)
+    bird.is_facing_right()
     bird.set_atk_status(True)
     actual_img_path = bird.update_img()
     expected_img_path = "Animations/Steve/Steve_front_right_atk.png"
