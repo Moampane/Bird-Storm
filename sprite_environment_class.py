@@ -103,17 +103,16 @@ class Environment(pygame.sprite.Sprite):
             boss_group: a pygame sprite group containing the boss sprite.
             player: a player object representing the controllable player.
         """
+
         self.display_num_enemies(screen, enemy_group)
         self.display_level(screen)
         self.display_num_enemies_slain(screen)
         if not player.alive():
             self.display_loss(screen, player)
-            for enemy in enemy_group:
-                enemy.kill()
+            self._stop_spawning = True
             return
 
         # Level 1
-        # put this back to level 1 when done testing
         if (
             self.level == 1
             and self.num_enemies < MAX_ENEMIES_ON_SCREEN
@@ -194,6 +193,7 @@ class Environment(pygame.sprite.Sprite):
                     tier=self.level,
                 )
                 enemy_group.add(tier3_enemy)
+
         if self.level != 5 and self.num_enemies_slain >= 15:
             self._stop_spawning = True
             if self.num_enemies == 0 and self.spawn_timer % LVL_1_INTERVAL != 0:

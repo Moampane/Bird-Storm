@@ -56,7 +56,6 @@ class ProjectileBoss(BirdCharacter):
         self._ms = BOSS_MOVESPEED
         self._remaining_hp = self._max_hp
         self._player = player
-        self._incomplete_intro = True
         self._img_scale_factor = BOSS_IMG_SCALE
         self._image = pygame.transform.scale_by(
             self._image, self._img_scale_factor
@@ -69,6 +68,7 @@ class ProjectileBoss(BirdCharacter):
         self._new_pos = random.choice(
             ["center", "bottom left", "bottom right", "top left", "top right"]
         )
+        self._incomplete_intro = True
         self._timer = 0
         self._hp_bar_width = self._width
         self._bullet_group = bullet_group
