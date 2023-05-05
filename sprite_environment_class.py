@@ -72,6 +72,8 @@ class Environment(pygame.sprite.Sprite):
         self._boss_slain = False
         self._stop_spawning = False
         self._message_timer = 0
+        self.start_not_pressed = True
+        self.reset_game = False
 
     def set_boss_slain_true(self):
         """
@@ -103,12 +105,11 @@ class Environment(pygame.sprite.Sprite):
             boss_group: a pygame sprite group containing the boss sprite.
             player: a player object representing the controllable player.
         """
-
         self.display_num_enemies(screen, enemy_group)
         self.display_level(screen)
         self.display_num_enemies_slain(screen)
         if not player.alive():
-            self.display_loss(screen, player)
+            self.display_loss(screen)
             self._stop_spawning = True
             return
 
@@ -216,7 +217,7 @@ class Environment(pygame.sprite.Sprite):
         # Display win
         if self._boss_slain:
             self.level = 6
-            self.display_win(screen)
+            self.display_win(screen, player)
 
         # Increment spawn timer
         self.spawn_timer += 1
@@ -272,7 +273,7 @@ class Environment(pygame.sprite.Sprite):
             ),
         )
 
-    def display_win(self, screen):
+    def display_win(self, screen, player):
         """
         Displays victory screen.
         Args:
@@ -288,34 +289,53 @@ class Environment(pygame.sprite.Sprite):
                 self._screen_height / 2 - victory_text_size[1] / 2,
             ),
         )
+        restart_text = FONT.render("Press Enter to play again!", False, YELLOW)
+        restart_text_size = pygame.font.Font.size(
+            FONT, "Press Enter to play again!"
+        )
+        screen.blit(
+            restart_text,
+            (
+                self._screen_width / 2 - restart_text_size[0] / 2,
+                self._screen_height / 2 + victory_text_size[1] / 2,
+            ),
+        )
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            self.reset_game = True
+            player.kill()
+            self.kill()
 
-    def display_loss(self, screen, player):
+    def display_loss(self, screen):
         """
         Displays death screen, offers replay button.
         Args:
             screen: a pygame display that the game is being played on.
-            player: a player object representing the controllable player.
         """
         death_text = VICTORY_FONT.render("YOU LOSE", False, RED)
         death_text_size = pygame.font.Font.size(VICTORY_FONT, "YOU LOSE")
         screen.blit(
             death_text,
             (
-                self._screen_width // 2 - death_text_size[0] / 2,
-                self._screen_height // 2 - death_text_size[1] / 2,
+                self._screen_width / 2 - death_text_size[0] / 2,
+                self._screen_height / 2 - death_text_size[1] / 2,
             ),
         )
-        restart_text = FONT.render("lol clucking loser", False, RED)
-        restart_text_size = pygame.font.Font.size(
-            VICTORY_FONT, "lol clucking loser"
+        restart_lose_text = FONT.render("Press Enter to Restart", False, RED)
+        restart_lose_text_size = pygame.font.Font.size(
+            FONT, "Press Enter to Restart"
         )
         screen.blit(
-            restart_text,
+            restart_lose_text,
             (
-                self._screen_width // 2,
-                self._screen_height // 2 + death_text_size[1] / 2,
+                self._screen_width / 2 - restart_lose_text_size[0] / 2,
+                self._screen_height / 2 + death_text_size[1] / 2,
             ),
         )
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            self.reset_game = True
+            self.kill()
 
     def display_boss_message(self, screen):
         """
