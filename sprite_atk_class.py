@@ -17,11 +17,12 @@ class Attack(pygame.sprite.Sprite):
         character.
         _image: A pygame image representing the character's attack hitbox.
         _rect: A pygame rectangle mapped to the attack's image.
-        _animation_loop: An int representing the frame the animation is on.
-        _first_hit: A boolean representing whether the first hit has
         occurred or not.
-        _txt_width: An int representing the width of the textbox of the attack
-        _txt_height: An int reprsenting the height of the textbos of the attack
+        _txt_width: An int representing the width of the textbox of the attack.
+        _txt_height: An int representing the height of the textbox of the
+        attack.
+        _animation_loop: An int representing the frame the animation is on.
+        _first_hit: A boolean representing whether the first hit has.
     """
 
     def __init__(self, character, group):
@@ -82,7 +83,7 @@ class Attack(pygame.sprite.Sprite):
     @property
     def rect(self):
         """
-        Returns the pygame rectangle of the attack.
+        Returns the pygame rectangle outlining the attack.
         """
         return self._rect
 
