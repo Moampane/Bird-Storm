@@ -82,11 +82,12 @@ class Bullet(sprite_atk_class.Attack):
         # moves bullet
         self.shoot()
         # if bullet goes out of bounds remove it
+        BOUNDS_SPACING = 100
         if (
-            self._rect.x > self._screen_width + 100
-            or self._rect.x < -100
-            or self._rect.y < -100
-            or self._rect.y > self._screen_height + 100
+            self._rect.x > self._screen_width + BOUNDS_SPACING
+            or self._rect.x < -BOUNDS_SPACING
+            or self._rect.y < -BOUNDS_SPACING
+            or self._rect.y > self._screen_height + BOUNDS_SPACING
         ):
             self.kill()
 

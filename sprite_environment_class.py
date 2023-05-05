@@ -12,8 +12,12 @@ VICTORY_FONT = pygame.font.Font("fonts/pixel.ttf", 150)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 LVL_1_INTERVAL = 400
+LVL_1_PROGRESS_THRESHOLD = 2
 LVL_2_INTERVAL = 200
+LVL_2_PROGRESS_THRESHOLD = 5
 LVL_3_INTERVAL = 100
+LVL_3_PROGRESS_THRESHOLD = 7
+LVL_4_PROGRESS_THRESHOLD = 15
 MAX_ENEMIES_ON_SCREEN = 8
 
 RONALD_ENEMY_PATH = "Animations/Ronald/Ronald_front_right_idle.png"
@@ -66,7 +70,7 @@ class Environment(pygame.sprite.Sprite):
         self._image = pygame.transform.scale(
             self._image, (self._screen_width + 30, self._screen_height)
         )
-        self._rect = self._image.get_rect(topleft=(-20, 0))
+        self._rect = self._image.get_rect(topleft=(0, 0))
         self._num_enemies = 0
         self._num_enemies_slain = 0
         self._level = 1
@@ -180,7 +184,7 @@ class Environment(pygame.sprite.Sprite):
                     tier=self._level,
                 )
                 enemy_group.add(tier1_enemy)
-            if self._num_enemies_slain >= 2:
+            if self._num_enemies_slain >= LVL_1_PROGRESS_THRESHOLD:
                 self._level = 2
 
         # Level 2
@@ -197,7 +201,7 @@ class Environment(pygame.sprite.Sprite):
                     tier=self._level,
                 )
                 enemy_group.add(tier2_enemy)
-            if self._num_enemies_slain >= 5:
+            if self._num_enemies_slain >= LVL_2_PROGRESS_THRESHOLD:
                 self._level = 3
 
         # Level 3
@@ -214,7 +218,7 @@ class Environment(pygame.sprite.Sprite):
                     tier=self._level,
                 )
                 enemy_group.add(tier3_enemy)
-            if self._num_enemies_slain >= 7:
+            if self._num_enemies_slain >= LVL_3_PROGRESS_THRESHOLD:
                 self._level = 4
 
         # Level 4
@@ -248,7 +252,10 @@ class Environment(pygame.sprite.Sprite):
                 )
                 enemy_group.add(tier3_enemy)
 
-        if self._level != 5 and self._num_enemies_slain >= 15:
+        if (
+            self._level != 5
+            and self._num_enemies_slain >= LVL_4_PROGRESS_THRESHOLD
+        ):
             self._stop_spawning = True
             if (
                 self._num_enemies == 0
@@ -260,7 +267,8 @@ class Environment(pygame.sprite.Sprite):
         if self._level == 5 and not self._boss_spawned:
             self.display_boss_message(screen)
             self._message_timer += 1
-            if self._message_timer >= 100:
+            MESSAGE_TIMER_THRESHOLD = 100
+            if self._message_timer >= MESSAGE_TIMER_THRESHOLD:
                 boss = ProjectileBoss(
                     image_path=BOSS_ENEMY_PATH,
                     bg=screen,
@@ -407,7 +415,7 @@ class Environment(pygame.sprite.Sprite):
         screen.blit(
             message,
             (
-                self._screen_width // 2 - message_size[0] / 2,
-                self._screen_height // 2 + message_size[1] / 2,
+                self._screen_width / 2 - message_size[0] / 2,
+                self._screen_height / 2 + message_size[1] / 2,
             ),
         )

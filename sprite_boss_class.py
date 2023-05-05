@@ -10,6 +10,9 @@ BOSS_IMG_SCALE = 0.45
 BOSS_MAX_HEALTH = 200
 BOSS_ATTACK = 0.5
 BOSS_MOVESPEED = 4
+ATK_INTERVAL = 200
+ATK_ANIMATION_TIME = 50
+TIMER_INCREMENT = 1
 
 
 class ProjectileBoss(BirdCharacter):
@@ -102,10 +105,11 @@ class ProjectileBoss(BirdCharacter):
         """
         Shoots 8 bullets in different directions around the boss.
         """
+        num_bullets = 8
         move_x_vals = [0, 1, 1, 1, 0, -1, -1, -1]
         move_y_vals = [-1, -1, 0, 1, 1, 1, 0, -1]
         screen_width, screen_height = self.screen.get_size()
-        for idx in range(8):
+        for idx in range(num_bullets):
             Bullet(
                 self,
                 self._bullet_group,
@@ -120,14 +124,17 @@ class ProjectileBoss(BirdCharacter):
         super().update()
 
         # Boss intro
+        BOSS_INTRO_MS = 40
+        BOSS_INTRO__STEP_INTERVAL = 10
+        INTRO_TARGET_Y_POS = self._screen.get_height() / 2 - 100
+
         if (
-            self._rect.y < self._screen.get_height() / 2 - 100
+            self._rect.y < INTRO_TARGET_Y_POS
             and self._incomplete_intro
-            and self._timer % 10 == 0
+            and self._timer % BOSS_INTRO__STEP_INTERVAL == 0
         ):
-            # change back to 1 later
             # Moves boss
-            self._rect.y += 40
+            self._rect.y += BOSS_INTRO_MS
             # Forces player in place
             self._player.rect.x = self._player.width
             self._player.rect.y = (
@@ -135,14 +142,14 @@ class ProjectileBoss(BirdCharacter):
             )
             self._player.control_movement(False)
             # Ends intro
-            if self._rect.y >= self._screen.get_height() / 2 - 100:
+            if self._rect.y >= INTRO_TARGET_Y_POS:
                 self._disable_bounds = False
                 self._incomplete_intro = False
                 self._player.control_movement(True)
 
         # Randomly choose Boss movement
         if not self._incomplete_intro:
-            if self._timer % 200 == 0:
+            if self._timer % ATK_INTERVAL == 0:
                 self.set_atk_status(True)
                 self._atk_timer = 0
                 self._new_pos = random.choice(
@@ -156,13 +163,13 @@ class ProjectileBoss(BirdCharacter):
                 )
                 self.bullet_spray()
             self.move_to_pos(self._new_pos)
-            if self._atk_timer == 50:
+            if self._atk_timer == ATK_ANIMATION_TIME:
                 self.set_atk_status(False)
         self.update_img()
 
         # increment timer
-        self._timer += 1
-        self._atk_timer += 1
+        self._timer += TIMER_INCREMENT
+        self._atk_timer += TIMER_INCREMENT
 
     def move_to_pos(self, new_pos):
         """

@@ -16,6 +16,9 @@ BACKGROUND_IMG_PATH = "Animations/sky.png"
 PLAYER_IMG_PATH = "Animations/Steve/Steve_front_right_idle.png"
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
+FRAMES_PER_SEC = 60
+TIMER_INCREMENT = 1
+ENEMY_ATK_INTERVAL = 69
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 environment = Environment(
@@ -68,9 +71,10 @@ while True:
         enemy_group = pygame.sprite.Group()
         boss_group = pygame.sprite.Group()
 
+        # reset game back to starting state
         environment.set_reset_game(False)
-        timer = 0
         environment.set_start_not_pressed(True)
+        timer = 0
 
     # displays introduction screen
     while environment.start_not_pressed:
@@ -84,9 +88,10 @@ while True:
         player_group.add(mc)
         env_group.add(environment)
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(FRAMES_PER_SEC)
 
-    timer += 1
+    timer += TIMER_INCREMENT
+
     # Background
     env_group.draw(screen)
     env_group.update(screen, enemy_group, boss_group, mc, boss_bullet_group)
@@ -113,7 +118,7 @@ while True:
                 player_atk = Attack(mc, player_atk_group)
 
     for enemy in enemy_group:
-        if enemy.atk_timer % 69 == 0:
+        if enemy.atk_timer % ENEMY_ATK_INTERVAL == 0:
             enemy_atk = Attack(enemy, enemy_atk_group)
 
     # Player
@@ -175,4 +180,4 @@ while True:
                 bullet.kill()
 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(FRAMES_PER_SEC)

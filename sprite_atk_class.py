@@ -6,6 +6,8 @@ import pygame
 pygame.init()
 ATK_FONT = pygame.font.Font("fonts/pixel.ttf", 40)
 ATK_SCALE = 2
+MAX_ANIMATION_TIME = 5
+ANIMATION_LOOP_INCREMENT = 0.5
 
 
 class Attack(pygame.sprite.Sprite):
@@ -67,9 +69,9 @@ class Attack(pygame.sprite.Sprite):
             self._rect.width = self._rect.width * ATK_SCALE
             self._rect.height = self._rect.height * (ATK_SCALE + 1)
 
-        self._animation_loop += 0.5
+        self._animation_loop += ANIMATION_LOOP_INCREMENT
         self._character.set_atk_status(True)
-        if self._animation_loop >= 5:
+        if self._animation_loop >= MAX_ANIMATION_TIME:
             self._character.set_atk_status(False)
             self.kill()
 
