@@ -58,9 +58,6 @@ class Player(BirdCharacter):
         self._remaining_hp = self._max_hp
         self._atk = PLAYER_ATK
         self._ms = PLAYER_MOVESPEED
-        # self._image = pygame.transform.scale(
-        #     self._image, (self._width, self._height)
-        # )
         self._img_scale_factor = PLAYER_SCALE_IMG
         self._image = pygame.transform.scale_by(
             self._image, self._img_scale_factor
