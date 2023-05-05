@@ -20,7 +20,7 @@ background_img = pygame.image.load(BACKGROUND_IMG_PATH)
 background_img = pygame.transform.scale(
     background_img, (SCREEN_WIDTH, SCREEN_HEIGHT)
 )
-welcome_txt = WELCOME_FONT.render("WELCOME TO BIRD GAME!", False, "Blue")
+welcome_txt = WELCOME_FONT.render("WELCOME TO BIRD STORM!", False, "Blue")
 welcome_txt_size = pygame.font.Font.size(WELCOME_FONT, "WELCOME TO BIRD GAME!")
 start_txt = START_FONT.render("Press Enter to start!", False, "Blue")
 start_txt_size = pygame.font.Font.size(START_FONT, "Press Enter to start!")
