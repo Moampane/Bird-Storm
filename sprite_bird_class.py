@@ -35,13 +35,19 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         _heading: the integer heading of the character
         _img_scale_factor: float factor by which to scale the character's image
         on the screen.
-        _attack_hitbox: Attack instance that represents the area in which this
-        character deals damage.
+        _hp_bar_width: An integer representing the width of the hp bar.
+        _disable_bounds: A boolean representing whether a BirdCharacter can be
+        outside of bounds or not.
     """
 
     def __init__(self, image_path, screen):
         """
         Initializes some BirdCharacter attributes for subclasses.
+
+        Args:
+            image_path: A string representing the path to a file containing the
+            BirdCharacter's graphic representation.
+            screen: A pygame display representing the game screen.
         """
         pygame.sprite.Sprite.__init__(self)
         # Declare attributes to be initialized more specifically in subclasses.
@@ -53,7 +59,6 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         self._height = None
         self._start_pos = None
         self._rect = None
-        self._attack_hitbox = pygame.sprite.Sprite()
         self._img_scale_factor = None
         self._hp_bar_width = self._width
 
