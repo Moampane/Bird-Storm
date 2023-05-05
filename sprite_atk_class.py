@@ -50,7 +50,7 @@ class Attack(pygame.sprite.Sprite):
         """
         Updates status of the attack.
         """
-        if self._character.is_facing_right():
+        if self._character.is_facing_right:
             self._rect = self._image.get_rect(
                 center=(
                     self._character.rect.topright[0] + self._txt_width / 2,
