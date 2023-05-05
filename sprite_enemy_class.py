@@ -21,6 +21,7 @@ class Enemy(BirdCharacter):
         _image: a pygame image representing the Enemy
         _width: an integer representing the width of the Enemy
         _height: an integer representing the height of the Enemy
+        _hp_bar_width: An integer representing the width of the hp bar.
         _max_hp: an integer representing the max health of the Enemy
         _atk: an integer representing the amount of damage the Enemy
         does in a single attack
