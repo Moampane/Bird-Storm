@@ -38,6 +38,13 @@ class ProjectileBoss(BirdCharacter):
         _new_pos: a String representing the next location the Boss
         will move to
         _timer: an integer representing the Boss' internal timer
+        _hp_bar_width: An integer representing the width of the hp bar.
+        _bullet_group: A pygame sprite group containing sprites representing
+        the Boss' bullets.
+        _atk_timer: An integer representing the Boss' internal timer
+        specifically for displaying the attack graphic.
+        _disable_bounds: A boolean representing whether the Boss can be
+        outside of bounds or not.
     """
 
     def __init__(self, image_path, bg, player, bullet_group):
@@ -49,6 +56,8 @@ class ProjectileBoss(BirdCharacter):
             player
             bg: the surface that the game is displayed on
             player: an instance of the Player character
+            bullet_group: A pygame sprite group containing sprites representing
+            the Boss' bullets.
         """
         super().__init__(image_path, bg)
         self._max_hp = BOSS_MAX_HEALTH
@@ -89,14 +98,17 @@ class ProjectileBoss(BirdCharacter):
             self.kill()
             environment.set_boss_slain_true()
 
-    def bullet_spray(self, group):
+    def bullet_spray(self):
+        """
+        Shoots 8 bullets in different directions around the boss.
+        """
         move_x_vals = [0, 1, 1, 1, 0, -1, -1, -1]
         move_y_vals = [-1, -1, 0, 1, 1, 1, 0, -1]
         screen_width, screen_height = self.screen.get_size()
         for idx in range(8):
             Bullet(
                 self,
-                group,
+                self._bullet_group,
                 (move_x_vals[idx], move_y_vals[idx]),
                 (screen_width, screen_height),
             )
@@ -142,7 +154,7 @@ class ProjectileBoss(BirdCharacter):
                         "top right",
                     ]
                 )
-                self.bullet_spray(self._bullet_group)
+                self.bullet_spray()
             self.move_to_pos(self._new_pos)
             if self._atk_timer == 50:
                 self.set_atk_status(False)

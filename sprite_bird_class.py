@@ -80,6 +80,13 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         return self._image
 
     @property
+    def remaining_hp(self):
+        """
+        Returns the character's integer representing remaining health.
+        """
+        return self._remaining_hp
+
+    @property
     def rect(self):
         """
         Returns the character's pygame rectangle.
@@ -204,3 +211,5 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         )
         self._width = self._image.get_width()
         self._height = self._image.get_height()
+
+        return updated_img_path
