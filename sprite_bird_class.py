@@ -128,11 +128,19 @@ class BirdCharacter(pygame.sprite.Sprite, ABC):
         """
         return self._screen
 
+    @property
     def is_facing_right(self):
         """
         Returns whether the character is facing right or not.
         """
         return self._is_facing_right
+
+    @property
+    def is_facing_forward(self):
+        """
+        Returns whether the character is facing forward or not.
+        """
+        return self._is_facing_forward
 
     def set_atk_status(self, is_atking):
         """
