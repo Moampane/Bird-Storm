@@ -10,12 +10,12 @@ import pygame
 
 """
     Ideas:
-    check that the character's hp is right after taking dmg
-    check that the character's position/image updates when moved left or right
+    check that the character's position/image updates when moved 
+    left or right
     check that the character's hp is the right width
     check character size is correct scale
 """
-TEST_PATH = "Animations/Steve/Steve_front_left_atk.png"
+TEST_PATH = "Animations/Steve/Steve_front_left_idle.png"
 # pygame.init()
 # clock = pygame.time.Clock()
 
@@ -37,10 +37,23 @@ def test_check_hp():
 
 
 def test_stay_in_bounds():
-    """ """
+    """
+    Test that the player stays within bounds when screen updates
+    """
     bird = Player(TEST_PATH, screen1)
     bird.update()
-    pass
+    assert bird._disable_bounds == False
+
+
+def test_hp_length():
+    """
+    Check that the hp length is only equal to the character's idle animation png width
+    """
+    bird = Player(TEST_PATH, screen1)
+    idle_image = pygame.image.load(TEST_PATH)
+    idle_width = idle_image.get_width()
+    idle_width = idle_width * PLAYER_SCALE_IMG
+    assert abs(bird._hp_bar_width - idle_width) <= 1
 
 
 def test_enemy_position():
