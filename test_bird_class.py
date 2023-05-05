@@ -1,10 +1,8 @@
 """
 Unit tests for overarching Bird Class
 """
-
-from sprite_bird_class import *
-from sprite_player_class import *
 import pygame
+from sprite_player_class import Player, PLAYER_SCALE_IMG
 
 TEST_PATH = "Animations/Steve/Steve_front_left_idle.png"
 SCREEN_WIDTH = 1280
@@ -14,7 +12,8 @@ screen1 = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 def test_check_hp():
     """
-    Test that the character's remaining HP is set to the correct value after taking damage.
+    Test that the character's remaining HP is set to the correct value
+    after taking damage.
     """
     bird = Player(TEST_PATH, screen1)
     initial_hp = bird.remaining_hp
@@ -29,12 +28,13 @@ def test_stay_in_bounds():
     """
     bird = Player(TEST_PATH, screen1)
     bird.update()
-    assert bird._disable_bounds == False
+    assert bird._disable_bounds is False
 
 
 def test_hp_length():
     """
-    Check that the hp length is only equal to the character's idle animation png width
+    Check that the hp length is only equal to the character's idle animation
+    png width
     """
     bird = Player(TEST_PATH, screen1)
     idle_image = pygame.image.load(TEST_PATH)
