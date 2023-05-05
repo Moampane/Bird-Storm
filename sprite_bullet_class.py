@@ -41,7 +41,8 @@ class Bullet(sprite_atk_class.Attack):
             of the bullet. The first element represents the x direction
             and the second the y direction.
             bg_size: A tuple representing the size of the screen. The first
-            element represents the width of the screen and the second the height.
+            element represents the width of the screen and the second the
+            height.
         """
         super().__init__(character, group)
         self._image = pygame.Surface((50, 50))
