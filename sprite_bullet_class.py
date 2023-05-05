@@ -5,8 +5,10 @@ import pygame
 import sprite_atk_class
 
 
-BULLET_SPEED = 5
+BULLET_SPEED = 7
 BULLET_DAMAGE = 10
+BULLET_PATH = "Animations/egg_projectile.png"
+BULLET_SCALE = 0.2
 
 
 class Bullet(sprite_atk_class.Attack):
@@ -45,8 +47,8 @@ class Bullet(sprite_atk_class.Attack):
             height.
         """
         super().__init__(character, group)
-        self._image = pygame.Surface((50, 50))
-        self._image.fill((255, 0, 0))
+        self._image = pygame.image.load(BULLET_PATH).convert_alpha()
+        self._image = pygame.transform.scale_by(self._image, BULLET_SCALE)
         character_x = character.rect.x
         character_y = character.rect.y
         character_width = character.width
